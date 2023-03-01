@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_BSPC),           SFT_T(KC_SPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
+                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_BSPC),           SFT_T(KC_SPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
+                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_LOWER] = LAYOUT_split_3x6_4(
@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_COLEMAK_DH);
             }
             return false;
-        case CTL_T(KC_BSPC):
+        case CTL_T(KC_SPC):
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     tap_code(KC_MINS);
@@ -184,7 +184,7 @@ void matrix_scan_user(void) {
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SFT_T(KC_SPC):
+        case SFT_T(KC_BSPC):
             // Do not force the mod-tap key press to be handled as a modifier
             // if any other key was pressed while the mod-tap key is held down.
             return true;
@@ -268,7 +268,7 @@ bool oled_task_user(void) {
         render_status();
     } else {
         oled_render_logo();
-        oled_scroll_left();  // Turns on scrolling
+        // oled_scroll_left();  // Turns on scrolling
     }
     return false;
 }

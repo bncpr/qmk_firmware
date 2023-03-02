@@ -127,6 +127,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
+        case SFT_T(KC_BSPC):
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_CTRL) {
+                    tap_code(KC_SPACE);
+                    return false;
+                }
+            }
+            return true;
         // replace shift + esc to shift + enter
         case KC_ESC:
             if (record->event.pressed) {

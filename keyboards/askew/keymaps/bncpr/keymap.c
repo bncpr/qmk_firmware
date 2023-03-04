@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_DEL,   KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                         KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_ENT,   KC_SPC,   XXXXXXX,                         XXXXXXX,  KC_HOME,  KC_END,   KC_PGDN,  KC_PGUP,  XXXXXXX,
+        KC_BSPC,  XXXXXXX,  XXXXXXX,  KC_ENT,   KC_SPC,   XXXXXXX,                         XXXXXXX,  KC_END,   KC_HOME,  KC_PGDN,  KC_PGUP,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       _______,  _______,  _______,  _______,     _______,  LT(_ADJUST, KC_ENT),  _______,  _______
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -128,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         case SFT_T(KC_BSPC):
-            if (record->event.pressed) {
+            if (record->tap.count && record->event.pressed) {
                 if (get_mods() & MOD_MASK_CTRL) {
                     tap_code(KC_SPACE);
                     return false;

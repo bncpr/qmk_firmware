@@ -19,7 +19,8 @@
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
-#define MASTER_LEFT
+// #define MASTER_LEFT
+#define EE_HANDS
 #define SOFT_SERIAL_PIN D2
 #define USE_SERIAL
 #define SPLIT_USB_DETECT

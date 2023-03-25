@@ -193,6 +193,7 @@ void matrix_scan_user(void) {
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_T(KC_BSPC):
+        case CTL_T(KC_SPC):
             // Do not force the mod-tap key press to be handled as a modifier
             // if any other key was pressed while the mod-tap key is held down.
             return true;
@@ -227,9 +228,14 @@ static void render_status(void) {
         0,  0, 15, 63,127,112,224,224,224,240,112, 48,  0,  0, 15, 63,127,240,224,224,224,240,127, 63, 15,  0,  0,255,255,255,224,224,224,224,224,224, 0,  0,255,255,255,227,227,227,227,227,227,  0,  0, 0,  0,255,255,255,  0,  0,  1,  1,  0,  0,255,255,255,  0,  0,255,255,255,  7,  7,  7,  7,  7,  7,255,255,255,  0,  0,255,255,255,  7, 15, 31, 60,120,240,224,192,  0,  0,  3,  3,  3,  3,  3,  3,  0,  0,255,255,255,224,224,224,112,120, 63, 31,  0,  0,255,255,255,  3,  3,  3,  3,255,255,255, 0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,
     };
-    oled_clear();
     // clang-format on
-    switch (get_highest_layer(layer_state | default_layer_state)) {
+    static int last_code = _QWERTY;
+    int        cur_code  = get_highest_layer(layer_state | default_layer_state);
+    if (cur_code != last_code) {
+        oled_clear();
+        last_code = cur_code;
+    }
+    switch (cur_code) {
         case _QWERTY:
             oled_write_raw_P(querty, sizeof(querty));
             break;
@@ -264,8 +270,8 @@ static void render_status(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    if (!is_keyboard_left()) {
+        return OLED_ROTATION_180;
     }
 
     return rotation;

@@ -20,6 +20,7 @@ enum custom_keycodes {
 };
 
 #define TMUX_PREFIX LCTL(KC_B)
+#define TMUX_PRE LCTL(KC_B)
 #define OSM_HYPR OSM(MOD_HYPR)
 #define RAISE_T(kc_code) LT(_RAISE, kc_code)
 #define LOWER_T(kc_code) LT(_LOWER, kc_code)
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_PLUS,  KC_4,     KC_5,     KC_6,     KC_EQL,                          XXXXXXX,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_SLSH,                         XXXXXXX,  KC_SPC,   KC_ENT,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_SLSH,                         XXXXXXX,  KC_SPC,   KC_ENT,   TMUX_PRE, XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                            _______,  KC_DOT, LT(_ADJUST, KC_0), KC_MINS,           _______,  _______,  _______,  _______
     //                                -------   -------   -------   -------      -------   -------   -------   -------

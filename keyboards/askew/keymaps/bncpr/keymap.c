@@ -4,6 +4,7 @@
 enum layers {
     _QWERTY,
     _COLEMAK_DH,
+    _GAME,
     _LOWER,
     _RAISE,
     _L2,
@@ -46,6 +47,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                     OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
+    [_GAME] = LAYOUT_split_3x6_4(
+        XXXXXXX,  KC_T,     KC_Q,     KC_W,     KC_E,     KC_R,                            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,                            XXXXXXX,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_TAB,   KC_Z,     KC_X,     KC_C,     KC_V,                            XXXXXXX,  KC_SPC,   KC_ENT,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      TG(_GAME),XXXXXXX,  KC_LCTL,  KC_SPC,      _______,  _______,  _______,  _______
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_LOWER] = LAYOUT_split_3x6_4(
@@ -91,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                           KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  DM_RSTP,  DM_REC2,  DM_REC1,  XXXXXXX,                         XXXXXXX,  QWERTY,   COLEMAK,  XXXXXXX,  XXXXXXX,  KC_F12,
+        XXXXXXX,  XXXXXXX,  DM_RSTP,  DM_REC2,  DM_REC1,  XXXXXXX,                         XXXXXXX,  QWERTY,   COLEMAK,  TO(_GAME),XXXXXXX,  KC_F12,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  DM_PLY2,  DM_PLY1,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -242,6 +253,10 @@ static void render_status(void) {
             break;
         case _COLEMAK_DH:
             oled_write_raw_P(colemak_dh, sizeof(querty));
+            break;
+        case _GAME:
+            oled_write_P(PSTR("Layer: "), false);
+            oled_write_P(PSTR("Game\n"), false);
             break;
         case _L2:
             oled_write_P(PSTR("Layer: "), false);

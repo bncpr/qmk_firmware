@@ -1,7 +1,7 @@
+#include QMK_KEYBOARD_H
 #include "bncpr.h"
 #include "oled_sugar/oled_sugar.h"
 #include "transactions.h"
-#include QMK_KEYBOARD_H
 #include "g/keymap_combo.h"
 
 enum layers {
@@ -126,13 +126,11 @@ void keyboard_post_init_user(void) {
 extern uint16_t keyCntr;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
 #ifdef OLED_ENABLE
-    keyCntr++;
-    transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
+    if (record->event.pressed) {
+        keyCntr++;
+        transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
+    }
 #endif
     switch (keycode) {
         case QWERTY:
@@ -267,31 +265,24 @@ static void render_status(void) {
             oled_render_colemak_dh();
             break;
         case _GAME:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Game\n"), false);
+            oled_write_ln_P(PSTR("Layer: Game"), false);
             break;
         case _L2:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Mouse\n"), false);
+            oled_write_ln_P(PSTR("Layer: Mouse"), false);
             break;
         case _R2:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Symbols\n"), false);
+            oled_write_ln_P(PSTR("Layer: Symbols"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Raise\n"), false);
+            oled_write_ln_P(PSTR("Layer: Raise"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Lower\n"), false);
+            oled_write_ln_P(PSTR("Layer: Lower"), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Layer: "), false);
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_ln_P(PSTR("Layer: Adjust"), false);
             break;
         default:
-            oled_write_P(PSTR("Layer: "), false);
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }

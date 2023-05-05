@@ -179,24 +179,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-LEADER_EXTERNS();
-
-#define ALT_TAB_TIMEOUT 750
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_THREE_KEYS(KC_G, KC_F, KC_P) { SEND_STRING("git fetch -p" SS_TAP(X_ENTER)); }
-        SEQ_THREE_KEYS(KC_G, KC_L, KC_G) { SEND_STRING("git log --oneline --decorate --graph" SS_TAP(X_ENTER)); }
-        SEQ_THREE_KEYS(KC_G, KC_P, KC_R) { SEND_STRING("git pull --rebase --autostash"); }
-        SEQ_THREE_KEYS(KC_G, KC_R, KC_H) { SEND_STRING("git reset --hard"); }
-        SEQ_THREE_KEYS(KC_G, KC_S, KC_S) { SEND_STRING("git status -s" SS_TAP(X_ENTER)); }
-        SEQ_THREE_KEYS(KC_G, KC_S, KC_T) { SEND_STRING("git status" SS_TAP(X_ENTER)); }
-        SEQ_TWO_KEYS(KC_G, KC_C) { SEND_STRING("sudo git clean -xdf"); }
+void leader_end_user(void) {
+    if (leader_sequence_three_keys(KC_G, KC_F, KC_P)) {
+        SEND_STRING("git fetch -p" SS_TAP(X_ENTER));
+    } else if (leader_sequence_three_keys(KC_G, KC_L, KC_G)) {
+        SEND_STRING("git log --oneline --decorate --graph" SS_TAP(X_ENTER));
+    } else if (leader_sequence_three_keys(KC_G, KC_P, KC_R)) {
+        SEND_STRING("git pull --rebase --autostash");
+    } else if (leader_sequence_three_keys(KC_G, KC_R, KC_H)) {
+        SEND_STRING("git reset --hard");
+    } else if (leader_sequence_three_keys(KC_G, KC_S, KC_S)) {
+        SEND_STRING("git status -s" SS_TAP(X_ENTER));
+    } else if (leader_sequence_three_keys(KC_G, KC_S, KC_T)) {
+        SEND_STRING("git status" SS_TAP(X_ENTER));
+    } else if (leader_sequence_two_keys(KC_G, KC_C)) {
+        SEND_STRING("sudo git clean -xdf");
     }
 
+
+    }
+}
+
+#define ALT_TAB_TIMEOUT 750
+void matrix_scan_user(void) {
     if (is_alt_tab_active && timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
         is_alt_tab_active = false;
         unregister_code(KC_LALT);

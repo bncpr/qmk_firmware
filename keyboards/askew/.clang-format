@@ -1,27 +1,29 @@
 
 ---
-BasedOnStyle: Google
+BasedOnStyle: LLVM
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: 'true'
-AlignConsecutiveDeclarations: 'true'
-AlignOperands: 'true'
-AllowAllParametersOfDeclarationOnNextLine: 'false'
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+# AlignConsecutiveMacros: AcrossEmptyLines
+AlignOperands: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: 'false'
-BinPackArguments: 'true'
-BinPackParameters: 'true'
+AlwaysBreakBeforeMultilineStrings: false
+BinPackArguments: true
+BinPackParameters: true
 ColumnLimit: 0
-IndentCaseLabels: 'true'
-IndentPPDirectives: AfterHash
+IndentCaseLabels: true
 IndentWidth: 4
 MaxEmptyLinesToKeep: 1
 PointerAlignment: Right
-SortIncludes: 'false'
-SpaceBeforeAssignmentOperators: 'true'
+SortIncludes: false
+SpaceBeforeAssignmentOperators: true
 SpaceBeforeParens: ControlStatements
-SpaceInEmptyParentheses: 'false'
-TabWidth: '4'
+SpaceInEmptyParentheses: false
+TabWidth: 4
+AllowShortIfStatementsOnASingleLine: Never
 UseTab: Never
 
 ...

@@ -1,3 +1,6 @@
+#include "bncpr.h"
+#include "oled_sugar/oled_sugar.h"
+#include "transactions.h"
 #include QMK_KEYBOARD_H
 #include "g/keymap_combo.h"
 
@@ -36,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
+                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
@@ -46,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  KC_LEAD
+                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_GAME] = LAYOUT_split_3x6_4(
@@ -111,14 +114,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 // clang-format on
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
 
-bool     is_alt_tab_active = false;
-uint16_t alt_tab_timer     = 0;
+void keyboard_post_init_user(void) {
+#ifdef OLED_ENABLE
+    transaction_register_rpc(USER_SYNC_KEY_CNTR, user_sync_a_update_keyCntr_on_other_board);
+#endif
+}
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+extern uint16_t keyCntr;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif
+#ifdef OLED_ENABLE
+    keyCntr++;
+    transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
 #endif
     switch (keycode) {
         case QWERTY:
@@ -226,42 +240,21 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef OLED_ENABLE
-static void oled_render_logo(void) {
-    static const char PROGMEM logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
-    oled_write_P(logo, false);
-}
 
-static void oled_render_qwerty(void) {
-    // clang-format off
-    static const char PROGMEM querty[] = {
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,224,248,252, 30, 14,  7,  7,  7, 15, 30,254,252,224,  0,  0,  0,  7, 63,255,248,192,  0,  0,  0,192,248,255, 63,255,248,192,  0,  0,  0,192,248,255, 63,  7,  0,  0,255,255,255,135,135,135,135,135,135,135,135,  0,  0,252,254,255, 15,  7,  3,  3,  7, 15,255,254,252,  0,  0,  7,  7,  7,  7,255,255,255,  7,  7,  7,  7,  0,  0,  3,  7, 14, 28, 56,112,224,224,224,112, 56, 28, 14,  7,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  7, 31, 63,120,112,224,224,236,252,120, 63,127,231,192,  0,  0,  0,  0,  1, 15,127,254,240,254,127, 15,  1,  0,  1, 15,127,254,240,254,127, 15,  1,  0,  0,  0,  0,255,255,255,227,227,227,227,227,227,227,227,  0,  0,255,255,255,  7, 14, 30, 62,126,255,247,227,193,  0,  0,  0,  0,  0,  0,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    };
-	oled_write_raw_P(querty, sizeof(querty));
-    // clang-format on
-}
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    if (!is_keyboard_left()) {
+        return OLED_ROTATION_180;
+    }
 
-static void oled_render_colemak_dh(void) {
-    // clang-format off
-    static const char PROGMEM colemak_dh[] = {
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,
-        0,  0,240,252,254, 15,  7,  7,  7, 15, 14, 12,  0,  0,240,248,254, 15,  7,  7,  7, 15,254,248,240,  0,  0,255,255,255,  0,  0,  0,  0,  0,  0, 0,  0,255,255,255,135,135,135,135,135,135,  0,  0, 0,  0,255,255,255,126,248,224,224,248,126,255,255,255,  0,  0,248,252,254, 15,  7,  3,  3,  7, 31,254,248,224,  0,  0,255,255,255,192,240,248,124, 30, 15,  7,  3,  0,  0,128,128,128,128,128,128,  0,  0,255,255,255,  7,  7,  7, 14, 30,252,248,  0,  0,255,255,255,128,128,128,128,255,255,255, 0,  0,  0,  0,  0,  0,
-        0,  0, 15, 63,127,112,224,224,224,240,112, 48,  0,  0, 15, 63,127,240,224,224,224,240,127, 63, 15,  0,  0,255,255,255,224,224,224,224,224,224, 0,  0,255,255,255,227,227,227,227,227,227,  0,  0, 0,  0,255,255,255,  0,  0,  1,  1,  0,  0,255,255,255,  0,  0,255,255,255,  7,  7,  7,  7,  7,  7,255,255,255,  0,  0,255,255,255,  7, 15, 31, 60,120,240,224,192,  0,  0,  3,  3,  3,  3,  3,  3,  0,  0,255,255,255,224,224,224,112,120, 63, 31,  0,  0,255,255,255,  3,  3,  3,  3,255,255,255, 0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,  0,  0,
-    };
-	oled_write_raw_P(colemak_dh, sizeof(colemak_dh));
-    // clang-format on
+    return rotation;
 }
 
 static void render_status(void) {
     static int last_code = _QWERTY;
-    int        cur_code  = get_highest_layer(layer_state | default_layer_state);
+    int cur_code = get_highest_layer(layer_state | default_layer_state);
     if (cur_code != last_code) {
         oled_clear();
         last_code = cur_code;
@@ -304,19 +297,12 @@ static void render_status(void) {
     }
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_left()) {
-        return OLED_ROTATION_180;
-    }
-
-    return rotation;
-}
-
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status();
+        oled_sugar();
     } else {
-        oled_render_logo();
+        render_status();
+        // oled_render_logo();
         // oled_scroll_left();  // Turns on scrolling
     }
     return false;

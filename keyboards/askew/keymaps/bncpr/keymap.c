@@ -1,7 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "bncpr.h"
+#ifdef OLED_SUGAR
 #include "oled_sugar/oled_sugar.h"
 #include "transactions.h"
+#endif
 #include "g/keymap_combo.h"
 
 enum layers {
@@ -117,16 +119,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
-void keyboard_post_init_user(void) {
-#ifdef OLED_ENABLE
-    transaction_register_rpc(USER_SYNC_KEY_CNTR, user_sync_a_update_keyCntr_on_other_board);
-#endif
-}
-
 extern uint16_t keyCntr;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_ENABLE
+#ifdef OLED_SUGAR
     if (record->event.pressed) {
         keyCntr++;
         transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
@@ -239,10 +235,27 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef OLED_ENABLE
 
+#ifdef OLED_SUGAR
+void keyboard_post_init_user(void) {
+    transaction_register_rpc(USER_SYNC_KEY_CNTR, user_sync_a_update_keyCntr_on_other_board);
+}
+#endif
+
+static void oled_render_logo(void) {
+    static const char PROGMEM logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(logo, false);
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+#ifdef OLED_SUGAR
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     }
+#endif
     if (!is_keyboard_left()) {
         return OLED_ROTATION_180;
     }
@@ -290,7 +303,11 @@ static void render_status(void) {
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
+#ifdef OLED_SUGAR
         oled_sugar();
+#else
+        oled_render_logo();
+#endif
     } else {
         render_status();
         // oled_render_logo();

@@ -15,13 +15,17 @@ enum layers {
     _L2,
     _R2,
     _ADJUST,
+    _MEDIA,
+    _NAV,
+    _MOUSE,
+    _SYM,
+    _NUM,
+    _FUN,
 };
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
-    LOWER,
-    RAISE,
     ALT_TAB,
 };
 
@@ -31,16 +35,28 @@ enum custom_keycodes {
 #define RAISE_T(kc_code) LT(_RAISE, kc_code)
 #define LOWER_T(kc_code) LT(_LOWER, kc_code)
 
+#define MEDIA_ESC LT(_MEDIA, KC_ESC)
+#define NAV_SPC LT(_NAV, KC_SPC)
+#define MOUSE_TAB LT(_MOUSE, KC_TAB)
+#define SYM_ENT LT(_SYM, KC_ENT)
+#define NUM_BSPC LT(_NUM, KC_BSPC)
+#define FUN_DEL LT(_FUN, KC_DEL)
+#define REDO C(KC_Y)
+#define UNDO C(KC_Z)
+#define CUT C(KC_X)
+#define COPY C(KC_C)
+#define PASTE S(C(KC_V))
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     ALT_TAB,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_LALT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                            KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+        XXXXXXX,  GUI_T(KC_A), ALT_T(KC_S), CTL_T(KC_D), SFT_T(KC_F), KC_G,                KC_H,     SFT_T(KC_J), CTL_T(KC_K), ALT_T(KC_L), GUI_T(KC_SCLN),  KC_QUOT,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_LGUI,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_UNDS,
+        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                    OSM_HYPR, MO(_L2), LOWER_T(KC_TAB), CTL_T(KC_SPC),           SFT_T(KC_BSPC),  RAISE_T(KC_ENT),  MO(_R2),  QK_LEAD
+                    OSM_HYPR, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
@@ -112,6 +128,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                             XXXXXXX,  DB_TOGG,  _______,  XXXXXXX,               XXXXXXX,  _______,  QK_REBOOT, QK_BOOT
     //                                -------   -------   -------   -------      -------   -------   -------    -------
+    ),
+    [_NAV] = LAYOUT_split_3x6_4(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                         KC_CAPS,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         KC_INS,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     KC_BSPC,  KC_ENT,   KC_DEL,   XXXXXXX
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
+    [_MOUSE] = LAYOUT_split_3x6_4(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         REDO,     PASTE,     COPY,    CUT,      UNDO,     XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                         XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,     KC_BTN2,  KC_BTN1,  KC_BTN3,  XXXXXXX
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
+    [_NUM] = LAYOUT_split_3x6_4(
+        XXXXXXX,  KC_LBRC,  KC_7,     KC_8,     KC_9,     KC_RBRC,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_SCLN,  KC_4,     KC_5,     KC_6,     KC_EQL,                          XXXXXXX,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_BSLS,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      _______,  KC_DOT,   KC_0,     KC_MINS,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
+    [_SYM] = LAYOUT_split_3x6_4(
+        XXXXXXX,  KC_LCBR,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RCBR,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_COLN,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_PLUS,                         XXXXXXX,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_PIPE,                         XXXXXXX,  KC_SPC,   KC_ENT,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      XXXXXXX,  KC_UNDS,  KC_MINS,  KC_PLUS,     _______,  _______,  _______,  _______
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
 };
 // clang-format on
@@ -196,7 +252,8 @@ void leader_end_user(void) {
         SEND_STRING("sudo git clean -xdf");
     }
 
-
+    else if (leader_sequence_two_keys(KC_M, KC_M)) {
+        SEND_STRING("mnib.mnib@gmail.com");
     }
 }
 

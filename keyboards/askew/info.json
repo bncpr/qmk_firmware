@@ -2,7 +2,7 @@
     "manufacturer": "Ben Cooper",
     "keyboard_name": "Askew",
     "maintainer": "bncpr",
-    "bootloader": "atmel-dfu",
+    "bootloader": "caterina",
     "features": {
         "bootmagic": true,
         "command": false,

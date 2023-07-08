@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_ADJUST] = LAYOUT_split_3x6_4(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  DT_DOWN,  DT_UP,    DT_PRNT,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  QWERTY,   COLEMAK,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -163,10 +163,6 @@ void leader_end_user(void) {
         SEND_STRING("git status" SS_TAP(X_ENTER));
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         SEND_STRING("sudo git clean -xdf");
-    }
-
-    else if (leader_sequence_two_keys(KC_M, KC_M)) {
-        SEND_STRING("mnib.mnib@gmail.com");
     }
 }
 

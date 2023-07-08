@@ -4,7 +4,7 @@
 COMB(COMBO_ESC,   KC_ESC,    KC_M, KC_COMM)
 /* COMB(COMBO_BSPC,  KC_BSPC,   KC_O, KC_P) */
 
-COMB(COMBO_COPY,   C(KC_C),     KC_X,    KC_C)
+COMB(COMBO_COPY,   S(C(KC_C)),     KC_X,    KC_C)
 COMB(COMBO_PASTE,  S(C(KC_V)),  KC_X,    KC_V)
 /* COMB(COMBO_UNDO,   C(KC_Z),     KC_Z,    KC_X) */
 /* COMB(COMBO_REDO,   C(KC_Y),     KC_LSFT, KC_Z, KC_X) */

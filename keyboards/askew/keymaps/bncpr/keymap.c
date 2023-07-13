@@ -6,34 +6,6 @@
 #endif
 #include "g/keymap_combo.h"
 
-// Tap Dance keycodes
-enum td_keycodes {
-    BUTTON_Z,
-};
-
-// Define a type containing as many tapdance states as you need
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_SINGLE_TAP,
-    TD_DOUBLE_TAP,
-    TD_DOUBLE_HOLD,
-} td_state_t;
-
-// Create a global instance of the tapdance state type
-static td_state_t td_state;
-
-// Declare your tapdance functions:
-
-// Function to determine the current tapdance state
-td_state_t cur_dance(tap_dance_state_t *state);
-
-// `finished` and `reset` functions for each tapdance keycode
-void buttonz_finished(tap_dance_state_t *state, void *user_data);
-void buttonz_reset(tap_dance_state_t *state, void *user_data);
-
 enum layers {
     _QWERTY,
     _COLEMAK_DH,
@@ -76,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  GUI_T(KC_A), ALT_T(KC_S), CTL_T(KC_D), SFT_T(KC_F), KC_G,                KC_H,     RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_QUOT),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  TD(BUTTON_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
+        XXXXXXX,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYPR, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -86,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  GUI_T(KC_A), ALT_T(KC_R), CTL_T(KC_S), SFT_T(KC_T), KC_G,                KC_M,     RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  TD(BUTTON_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
+        XXXXXXX,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYPR, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -114,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT_split_3x6_4(
         XXXXXXX,  KC_LBRC,  KC_7,     KC_8,     KC_9,     KC_RBRC,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_SCLN,  KC_4,     KC_5,     KC_6,     KC_EQL,                          XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
+        XXXXXXX,  KC_SCLN,  KC_4,     KC_5,     KC_6,     KC_EQL,                          XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  OSM(MOD_RGUI),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_BSLS,                         KC_SPC,   KC_BSPC,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -164,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BUTTON] = LAYOUT_split_3x6_4(
         XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                             REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                          XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
+        XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  OSM(MOD_LSFT),  XXXXXXX,                          XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
         XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                             REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
@@ -325,84 +297,16 @@ bool oled_task_user(void) {
 #ifdef OLED_SUGAR
         oled_sugar();
 #else
-        oled_render_logo();
+        render_status();
 #endif
     } else {
+#ifdef OLED_SUGAR
         render_status();
-        // oled_render_logo();
+#else
+        oled_render_logo();
         // oled_scroll_left();  // Turns on scrolling
+#endif
     }
     return false;
 }
 #endif
-
-// Determine the tapdance state to return
-td_state_t cur_dance(tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed)
-            return TD_SINGLE_TAP;
-        // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
-        else
-            return TD_SINGLE_HOLD;
-    } else if (state->count == 2) {
-        // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-        // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-        // keystrokes of the key, and not the 'double tap' action/macro.
-        if (state->interrupted)
-            return TD_DOUBLE_SINGLE_TAP;
-        else if (state->pressed)
-            return TD_DOUBLE_HOLD;
-        else
-            return TD_DOUBLE_TAP;
-    }
-
-    return TD_UNKNOWN; // Any number higher than the maximum state value you return above
-}
-
-// Handle the possible states for each tapdance keycode you define:
-
-void buttonz_finished(tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            register_code16(KC_Z);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_on(_BUTTON);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_Z);
-            register_code16(KC_Z);
-            break;
-        case TD_DOUBLE_HOLD:
-            register_mods(MOD_BIT(KC_LSFT));
-            layer_on(_BUTTON);
-            break;
-        default:
-            break;
-    }
-}
-
-void buttonz_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_DOUBLE_SINGLE_TAP:
-        case TD_DOUBLE_TAP:
-        case TD_SINGLE_TAP:
-            unregister_code16(KC_Z);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_off(_BUTTON);
-            break;
-        case TD_DOUBLE_HOLD:
-            unregister_mods(MOD_BIT(KC_LSFT));
-            layer_off(_BUTTON);
-            break;
-        default:
-            break;
-    }
-}
-
-// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-tap_dance_action_t tap_dance_actions[] = {
-    [BUTTON_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, buttonz_finished, buttonz_reset)};

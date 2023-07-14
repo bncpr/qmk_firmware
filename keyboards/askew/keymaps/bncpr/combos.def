@@ -4,8 +4,8 @@
 COMB(COMBO_ESC,   KC_ESC,    KC_M, KC_COMM)
 /* COMB(COMBO_BSPC,  KC_BSPC,   KC_O, KC_P) */
 
-COMB(COMBO_COPY,   S(C(KC_C)),     KC_X,    KC_C)
-COMB(COMBO_PASTE,  S(C(KC_V)),  KC_X,    KC_V)
+// COMB(COMBO_COPY,   S(C(KC_C)),     KC_X,    KC_C)
+// COMB(COMBO_PASTE,  S(C(KC_V)),  KC_X,    KC_V)
 /* COMB(COMBO_UNDO,   C(KC_Z),     KC_Z,    KC_X) */
 /* COMB(COMBO_REDO,   C(KC_Y),     KC_LSFT, KC_Z, KC_X) */
 
@@ -14,12 +14,12 @@ COMB(COMBO_PASTE,  S(C(KC_V)),  KC_X,    KC_V)
 // SUBS(COMBO_TMUX_NEXT, SS_LCTL("b") SS_TAP(X_N), KC_M, KC_COMM, KC_DOT)
 // SUBS(COMBO_TMUX_PREV, SS_LCTL("b") SS_TAP(X_P), KC_V, KC_C, KC_X)
 
-SUBS(COMBO_PAREN,  "()"    SS_TAP(X_LEFT),  KC_R, KC_U)
-SUBS(COMBO_SQBRC,  "[]"    SS_TAP(X_LEFT),  KC_E, KC_I)
-SUBS(COMBO_CBRC,   "{}"    SS_TAP(X_LEFT),  KC_W, KC_O)
-SUBS(COMBO_QUOT,   "\"\""  SS_TAP(X_LEFT),  KC_V, KC_M)
-SUBS(COMBO_SQUOT,  "''"    SS_TAP(X_LEFT),  KC_C, KC_COMM)
-SUBS(COMBO_TRIAG,  "<>"    SS_TAP(X_LEFT),  KC_X, KC_DOT)
+// SUBS(COMBO_PAREN,  "()"    SS_TAP(X_LEFT),  KC_R, KC_U)
+// SUBS(COMBO_SQBRC,  "[]"    SS_TAP(X_LEFT),  KC_E, KC_I)
+// SUBS(COMBO_CBRC,   "{}"    SS_TAP(X_LEFT),  KC_W, KC_O)
+// SUBS(COMBO_QUOT,   "\"\""  SS_TAP(X_LEFT),  KC_V, KC_M)
+// SUBS(COMBO_SQUOT,  "''"    SS_TAP(X_LEFT),  KC_C, KC_COMM)
+// SUBS(COMBO_TRIAG,  "<>"    SS_TAP(X_LEFT),  KC_X, KC_DOT)
 // SUBS(COMBO_ARROW,  "->",                    KC_K, KC_DOT)
 // SUBS(COMBO_EQ,     "==",                    KC_C, KC_F)
 // SUBS(COMBO_NOTEQ,  "!=",                    KC_X, KC_D)

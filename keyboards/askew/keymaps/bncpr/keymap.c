@@ -13,10 +13,9 @@ enum layers {
     _MEDIA,
     _NAV,
     _MOUSE,
-    // _SYM,
+    _SYM,
     _NUM,
     _FUN,
-    _CODE0,
     _BUTTON,
     _ADJUST,
 };
@@ -32,7 +31,7 @@ enum custom_keycodes {
 #define MEDIA_ESC LT(_MEDIA, KC_ESC)
 #define NAV_SPC LT(_NAV, KC_SPC)
 #define MOUSE_TAB LT(_MOUSE, KC_TAB)
-#define SYM_ENT LT(_CODE0, KC_ENT)
+#define SYM_ENT LT(_SYM, KC_ENT)
 #define NUM_BSPC LT(_NUM, KC_BSPC)
 #define FUN_DEL LT(_FUN, KC_DEL)
 #define BUTT_T(key) LT(_BUTTON, key)
@@ -104,22 +103,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,     KC_BTN2,  KC_BTN1,  KC_BTN3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
-    // [_SYM] = LAYOUT_split_3x6_4(
-    //     XXXXXXX,  KC_LCBR,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RCBR,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-    //     XXXXXXX,  KC_COLN,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_PLUS,                         XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
-    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-    //     XXXXXXX,  KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_PIPE,                         KC_SPC,   XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
-    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-    //                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  KC_UNDS,     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX
-    // //                                -------   -------   -------   -------      -------   -------   -------   -------
-    // ),
-    [_CODE0] = LAYOUT_split_3x6_4(
-        XXXXXXX,  KC_PIPE,  KC_AMPR,  KC_LBRC,  KC_RBRC,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    [_SYM] = LAYOUT_split_3x6_4(
+        XXXXXXX,  KC_LCBR,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RCBR,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_COLN,  KC_EQUAL, KC_PLUS,  KC_MINS,  XXXXXXX,                         XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
+        XXXXXXX,  KC_COLN,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_PLUS,                         XXXXXXX,  KC_RSFT,  KC_RCTL,  KC_RALT,  KC_RGUI,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_TILD,  KC_EXLM,  KC_LCBR,  KC_RCBR,  XXXXXXX,                         KC_SPC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_PIPE,                         KC_SPC,   XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  KC_LPRN,  KC_RPRN,  KC_UNDS,     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -282,11 +271,8 @@ static void render_status(void) {
         case _MOUSE:
             oled_write_ln_P(PSTR("Layer: Mouse"), false);
             break;
-        // case _SYM:
-        //     oled_write_ln_P(PSTR("Layer: Symbols"), false);
-        //     break;
-        case _CODE0:
-            oled_write_ln_P(PSTR("Layer: Code 0"), false);
+        case _SYM:
+            oled_write_ln_P(PSTR("Layer: Symbols"), false);
             break;
         case _MEDIA:
             oled_write_ln_P(PSTR("Layer: Media"), false);
@@ -318,7 +304,7 @@ bool oled_task_user(void) {
         render_status();
 #else
         oled_render_logo();
-        oled_scroll_left();  // Turns on scrolling
+        // oled_scroll_left();  // Turns on scrolling
 #endif
     }
     return false;

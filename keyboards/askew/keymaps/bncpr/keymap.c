@@ -204,6 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef LEADER_ENABLE
 void leader_end_user(void) {
     if (leader_sequence_three_keys(KC_G, KC_F, KC_P)) {
         SEND_STRING("git fetch -p" SS_TAP(X_ENTER));
@@ -221,6 +222,7 @@ void leader_end_user(void) {
         SEND_STRING("sudo git clean -xdf");
     }
 }
+#endif /* ifdef LEADER_ENABLE */
 
 // bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 //     switch (keycode) {

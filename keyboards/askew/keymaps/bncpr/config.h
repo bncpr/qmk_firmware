@@ -21,7 +21,7 @@
 // #define HOLD_ON_OTHER_KEY_PRESS
 // #define PERMISSIVE_HOLD
 
-// #define COMBO_ONLY_FROM_LAYER 0
+#define COMBO_ONLY_FROM_LAYER 0
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA

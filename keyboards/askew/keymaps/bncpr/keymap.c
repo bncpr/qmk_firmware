@@ -180,6 +180,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // extern uint16_t keyCntr;
 
+#define DO_IF_PRESSED(keycode, expr)     \
+    do {                                 \
+        case keycode:                    \
+            if (record->event.pressed) { \
+                expr;                    \
+            }                            \
+            return false;                \
+    } while (false);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_SUGAR
     if (record->event.pressed) {
@@ -188,38 +197,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK_DH);
-            }
-            return false;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
-        case CH_LANG:
-            if (record->event.pressed) {
-                tap_code16(LGUI(KC_SPACE));
-            }
-            return false;
-        case SECRET_3:
-            if (record->event.pressed) {
-                send_string_P(secrets[3]);
-            }
-            return false;
-        case SECRET_4:
-            if (record->event.pressed) {
-                send_string_P(secrets[4]);
-            }
-            return false;
+        DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
+        DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
+        DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
+        DO_IF_PRESSED(CH_LANG, tap_code16(LGUI(KC_SPACE)));
+        DO_IF_PRESSED(SECRET_3, send_string_P(secrets[3]));
+        DO_IF_PRESSED(SECRET_4, send_string_P(secrets[4]));
     }
-    (void)secrets;
     return true;
 }
 

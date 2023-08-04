@@ -6,6 +6,9 @@
 #include "transactions.h"
 #endif
 #include "g/keymap_combo.h"
+#if __has_include("secrets.h")
+#include "secrets.h"
+#endif
 
 enum layers {
     _QWERTY,
@@ -27,6 +30,11 @@ enum custom_keycodes {
     COLEMAK,
     DVORAK,
     CH_LANG,
+    SECRET_0,
+    SECRET_1,
+    SECRET_2,
+    SECRET_3,
+    SECRET_4,
 };
 
 #define TMUX_PRE LCTL(KC_B)
@@ -160,9 +168,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  DT_DOWN,  DT_UP,    DT_PRNT,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  TG(_GAME),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_0, SECRET_1, SECRET_2, XXXXXXX, XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -200,7 +208,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LGUI(KC_SPACE));
             }
             return false;
+        case SECRET_0:
+            if (record->event.pressed) {
+                send_string_P(secrets[0]);
+            }
+            return false;
+        case SECRET_1:
+            if (record->event.pressed) {
+                send_string_P(secrets[1]);
+            }
+            return false;
+        case SECRET_2:
+            if (record->event.pressed) {
+                send_string_P(secrets[2]);
+            }
+            return false;
     }
+    (void)secrets;
     return true;
 }
 

@@ -100,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                         KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, CW_TOGG,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,MO(_ADJUST),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     KC_ENT,   KC_BSPC,   KC_DEL,   XXXXXXX
+                                      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     KC_ENT,   LT(_ADJUST, KC_BSPC),   KC_DEL,   XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_NUM] = LAYOUT_split_3x6_4(
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_BSLS,                         XXXXXXX,  KC_SPC,   KC_BSPC,  KC_ENT,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  KC_DOT,   KC_0,     KC_MINS,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  KC_DOT,   LT(_ADJUST, KC_0),     KC_MINS,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_MOUSE] = LAYOUT_split_3x6_4(
@@ -168,11 +168,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  DT_DOWN,  DT_UP,    DT_PRNT,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LSFT,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
+        XXXXXXX,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, QK_MAKE,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, QK_MAKE,  XXXXXXX, XXXXXXX, XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
 };

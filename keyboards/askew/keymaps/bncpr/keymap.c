@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_REP,   GUI_T(KC_A), ALT_T(KC_S), CTL_T(KC_D), SFT_T(KC_F), ALL_T(KC_G),                ALL_T(KC_H),     RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_QUOT),  QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
+        QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYPR, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_REP,   GUI_T(KC_A), ALT_T(KC_R), CTL_T(KC_S), SFT_T(KC_T), ALL_T(KC_G),                ALL_T(KC_M),     RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O),  QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  XXXXXXX,
+        QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYPR, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_0, SECRET_1, SECRET_2, XXXXXXX, XXXXXXX,
+        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -208,19 +208,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LGUI(KC_SPACE));
             }
             return false;
-        case SECRET_0:
+        case SECRET_3:
             if (record->event.pressed) {
-                send_string_P(secrets[0]);
+                send_string_P(secrets[3]);
             }
             return false;
-        case SECRET_1:
+        case SECRET_4:
             if (record->event.pressed) {
-                send_string_P(secrets[1]);
-            }
-            return false;
-        case SECRET_2:
-            if (record->event.pressed) {
-                send_string_P(secrets[2]);
+                send_string_P(secrets[4]);
             }
             return false;
     }
@@ -244,6 +239,12 @@ void leader_end_user(void) {
         SEND_STRING("git status" SS_TAP(X_ENTER));
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         SEND_STRING("sudo git clean -xdf");
+    } else if (leader_sequence_two_keys(KC_M, KC_M)) {
+        send_string_P(secrets[0]);
+    } else if (leader_sequence_two_keys(KC_M, KC_G)) {
+        send_string_P(secrets[1]);
+    } else if (leader_sequence_two_keys(KC_M, KC_P)) {
+        send_string_P(secrets[2]);
     }
 }
 #endif /* ifdef LEADER_ENABLE */

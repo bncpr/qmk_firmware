@@ -168,9 +168,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  DT_DOWN,  DT_UP,    DT_PRNT,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LSFT,  XXXXXXX,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, QK_MAKE,  XXXXXXX, XXXXXXX, XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------

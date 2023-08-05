@@ -21,7 +21,6 @@ enum layers {
     _SYM,
     _NUM,
     _FUN,
-    _BUTTON,
     _ADJUST,
 };
 
@@ -50,7 +49,6 @@ enum custom_keycodes {
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define NUM_BSPC LT(_NUM, KC_BSPC)
 #define FUN_DEL LT(_FUN, KC_DEL)
-#define BUTT_T(key) LT(_BUTTON, key)
 #define F(key) ALL_T(key)
 #define I(key) SFT_T(key)
 #define M(key) CTL_T(key)
@@ -69,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_REP,   P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
+        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -79,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_REP,   P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
+        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -89,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  P(KC_A),  R(KC_O),  M(KC_E),  I(KC_U),  F(KC_I),                         F(KC_D),  I(KC_H),  M(KC_T),  R(KC_N),  P(KC_S),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  BUTT_T(KC_SLSH),    KC_Q,     KC_J,     KC_K,     KC_X,                  KC_B,     KC_M,     KC_W,     KC_V,     BUTT_T(KC_Z),  XXXXXXX,
+        XXXXXXX,  KC_SLSH,    KC_Q,     KC_J,     KC_K,     KC_X,                          KC_B,     KC_M,     KC_W,     KC_V,     KC_Z,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -163,16 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  KC_APP,   KC_SPC,   KC_TAB,      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
-    ),
-    [_BUTTON] = LAYOUT_split_3x6_4(
-        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                             REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
-    //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
-        XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                          OSM_HYP,  OSM_SFT,  OSM_CTL,  OSM_ALT,  OSM_GUI,  XXXXXXX,
-    //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
-        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                             REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
-    //  -------   -------   -------   -------   -------   -------                           -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
-    //                                -------   -------   -------   -------       -------   -------   -------   -------
     ),
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  DT_DOWN,  DT_UP,    DT_PRNT,  XXXXXXX,  XXXXXXX,
@@ -326,9 +314,6 @@ static void render_status(void) {
             break;
         case _FUN:
             oled_write_ln_P(PSTR("Layer: Function"), false);
-            break;
-        case _BUTTON:
-            oled_write_ln_P(PSTR("Layer: Button"), false);
             break;
         case _ADJUST:
             oled_write_ln_P(PSTR("Layer: Adjust"), false);

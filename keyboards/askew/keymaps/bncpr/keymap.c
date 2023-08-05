@@ -181,14 +181,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // extern uint16_t keyCntr;
 
-#define DO_IF_PRESSED(keycode, expr)     \
-    do {                                 \
-        case keycode:                    \
-            if (record->event.pressed) { \
-                expr;                    \
-            }                            \
-            return false;                \
-    } while (false);
+#define DO_IF_PRESSED(keycode, expr) \
+    case keycode:                    \
+        if (record->event.pressed) { \
+            expr;                    \
+        }                            \
+        return false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_SUGAR
@@ -312,6 +310,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
+#define OLED_WRITE(str) oled_write_ln_P(PSTR(str), false);
+#define OLED_WRITE_LAYER(layer, name) \
+    case layer:                       \
+        OLED_WRITE("Layer: " name);   \
+        break;
+
 static void render_status(void) {
     static int last_code = _QWERTY;
     int cur_code = get_highest_layer(layer_state | default_layer_state);
@@ -320,42 +324,23 @@ static void render_status(void) {
         last_code = cur_code;
     }
     switch (cur_code) {
+        OLED_WRITE_LAYER(_DVORAK, "Dvorak");
+        OLED_WRITE_LAYER(_GAME, "Game");
+        OLED_WRITE_LAYER(_NAV, "Navigation");
+        OLED_WRITE_LAYER(_NUM, "Numbers");
+        OLED_WRITE_LAYER(_MOUSE, "Mouse");
+        OLED_WRITE_LAYER(_SYM, "Symbols");
+        OLED_WRITE_LAYER(_MEDIA, "Media");
+        OLED_WRITE_LAYER(_FUN, "Function");
+        OLED_WRITE_LAYER(_ADJUST, "Adjust");
         case _QWERTY:
             oled_render_qwerty();
             break;
         case _COLEMAK_DH:
             oled_render_colemak_dh();
             break;
-        case _DVORAK:
-            oled_write_ln_P(PSTR("Layer: Dvorak"), false);
-            break;
-        case _GAME:
-            oled_write_ln_P(PSTR("Layer: Game"), false);
-            break;
-        case _NAV:
-            oled_write_ln_P(PSTR("Layer: Navigation"), false);
-            break;
-        case _NUM:
-            oled_write_ln_P(PSTR("Layer: Numbers"), false);
-            break;
-        case _MOUSE:
-            oled_write_ln_P(PSTR("Layer: Mouse"), false);
-            break;
-        case _SYM:
-            oled_write_ln_P(PSTR("Layer: Symbols"), false);
-            break;
-        case _MEDIA:
-            oled_write_ln_P(PSTR("Layer: Media"), false);
-            break;
-        case _FUN:
-            oled_write_ln_P(PSTR("Layer: Function"), false);
-            break;
-        case _ADJUST:
-            oled_write_ln_P(PSTR("Layer: Adjust"), false);
-            break;
         default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
+            OLED_WRITE("Unknown");
     }
 }
 

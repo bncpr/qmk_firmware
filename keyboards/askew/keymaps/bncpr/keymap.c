@@ -51,6 +51,11 @@ enum custom_keycodes {
 #define NUM_BSPC LT(_NUM, KC_BSPC)
 #define FUN_DEL LT(_FUN, KC_DEL)
 #define BUTT_T(key) LT(_BUTTON, key)
+#define F(key) ALL_T(key)
+#define I(key) SFT_T(key)
+#define M(key) CTL_T(key)
+#define R(key) ALT_T(key)
+#define P(key) GUI_T(key)
 #define REDO C(KC_Y)
 #define UNDO C(KC_Z)
 #define CUT C(KC_X)
@@ -62,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_REP,   GUI_T(KC_A), ALT_T(KC_S), CTL_T(KC_D), SFT_T(KC_F), ALL_T(KC_G),                ALL_T(KC_H),     RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_QUOT),  QK_REP,
+        QK_REP,   P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -72,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,      KC_L,    KC_U,     KC_Y,     KC_QUOT,  CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_REP,   GUI_T(KC_A), ALT_T(KC_R), CTL_T(KC_S), SFT_T(KC_T), ALL_T(KC_G),                ALL_T(KC_M),     RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O),  QK_REP,
+        QK_REP,   P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  QK_REP,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_LEAD,  BUTT_T(KC_Z),     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   BUTT_T(KC_SLSH),  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -82,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DVORAK] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,                            KC_F,      KC_G,    KC_C,     KC_R,     KC_L,     CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  GUI_T(KC_A), ALT_T(KC_O), CTL_T(KC_E), SFT_T(KC_U), ALL_T(KC_I),         ALL_T(KC_D), RSFT_T(KC_H), RCTL_T(KC_T), RALT_T(KC_N), RGUI_T(KC_S),  XXXXXXX,
+        XXXXXXX,  P(KC_A),  R(KC_O),  M(KC_E),  I(KC_U),  F(KC_I),                         F(KC_D),  I(KC_H),  M(KC_T),  R(KC_N),  P(KC_S),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  BUTT_T(KC_SLSH),    KC_Q,     KC_J,     KC_K,     KC_X,                  KC_B,     KC_M,     KC_W,     KC_V,     BUTT_T(KC_Z),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------

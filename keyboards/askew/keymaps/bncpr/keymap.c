@@ -36,19 +36,18 @@ enum custom_keycodes {
     SECRET_4,
 };
 
-#define TMUX_PRE LCTL(KC_B)
 #define OSM_HYP OSM(MOD_HYPR)
 #define OSM_SFT OSM(MOD_LSFT)
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_ALT OSM(MOD_LALT)
 #define OSM_GUI OSM(MOD_LGUI)
 
-#define MEDIA_ESC LT(_MEDIA, KC_ESC)
-#define NAV_SPC LT(_NAV, KC_SPC)
-#define MOUSE_TAB LT(_MOUSE, KC_TAB)
-#define SYM_ENT LT(_SYM, KC_ENT)
-#define NUM_BSPC LT(_NUM, KC_BSPC)
-#define FUN_DEL LT(_FUN, KC_DEL)
+#define THUMBL3 LT(_MEDIA, KC_ESC)
+#define THUMBL1 LT(_NAV, KC_SPC)
+#define THUMBL2 LT(_MOUSE, KC_TAB)
+#define THUMBR2 LT(_SYM, KC_ENT)
+#define THUMBR1 LT(_NUM, KC_BSPC)
+#define THUMBR3 LT(_FUN, KC_DEL)
 #define F(key) ALL_T(key)
 #define I(key) SFT_T(key)
 #define M(key) CTL_T(key)
@@ -69,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
+                                      XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
@@ -79,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
+                                      XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_DVORAK] = LAYOUT_split_3x6_4(
@@ -89,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_SLSH,    KC_Q,     KC_J,     KC_K,     KC_X,                          KC_B,     KC_M,     KC_W,     KC_V,     KC_Z,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      OSM_HYP, MEDIA_ESC, NAV_SPC, MOUSE_TAB,           SYM_ENT,  NUM_BSPC,  FUN_DEL,  QK_LEAD
+                                      XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_GAME] = LAYOUT_split_3x6_4(

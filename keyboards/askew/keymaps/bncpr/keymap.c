@@ -29,11 +29,6 @@ enum custom_keycodes {
     COLEMAK,
     DVORAK,
     CH_LANG,
-    SECRET_0,
-    SECRET_1,
-    SECRET_2,
-    SECRET_3,
-    SECRET_4,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -164,9 +159,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         TG(_GAME),  QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
+        XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         TG(_GAME),QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  SECRET_3, QK_MAKE,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  QK_MAKE,  QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -197,34 +192,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
         DO_IF_PRESSED(CH_LANG, tap_code16(LGUI(KC_SPACE)));
-        DO_IF_PRESSED(SECRET_3, send_string_P(secrets[3]));
-        DO_IF_PRESSED(SECRET_4, send_string_P(secrets[4]));
     }
     return true;
 }
 
 #ifdef LEADER_ENABLE
 void leader_end_user(void) {
+    // Git
     if (leader_sequence_three_keys(KC_G, KC_F, KC_P)) {
-        SEND_STRING("git fetch -p" SS_TAP(X_ENTER));
+        SEND_STRING("git fetch -p\n");
     } else if (leader_sequence_three_keys(KC_G, KC_L, KC_G)) {
-        SEND_STRING("git log --oneline --decorate --graph" SS_TAP(X_ENTER));
+        SEND_STRING("git log --oneline --decorate --graph\n");
     } else if (leader_sequence_three_keys(KC_G, KC_P, KC_R)) {
         SEND_STRING("git pull --rebase --autostash");
     } else if (leader_sequence_three_keys(KC_G, KC_R, KC_H)) {
         SEND_STRING("git reset --hard");
     } else if (leader_sequence_three_keys(KC_G, KC_S, KC_S)) {
-        SEND_STRING("git status -s" SS_TAP(X_ENTER));
+        SEND_STRING("git status -s\n");
     } else if (leader_sequence_three_keys(KC_G, KC_S, KC_T)) {
-        SEND_STRING("git status" SS_TAP(X_ENTER));
+        SEND_STRING("git status\n");
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         SEND_STRING("sudo git clean -xdf");
-    } else if (leader_sequence_two_keys(KC_M, KC_M)) {
+    }
+    // Secrets
+    else if (leader_sequence_two_keys(KC_M, KC_M)) {
         send_string_P(secrets[0]);
     } else if (leader_sequence_two_keys(KC_M, KC_G)) {
         send_string_P(secrets[1]);
     } else if (leader_sequence_two_keys(KC_M, KC_P)) {
         send_string_P(secrets[2]);
+    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
+        send_string_P(secrets[3]);
+    } else if (leader_sequence_two_keys(KC_S, KC_B)) {
+        send_string_P(secrets[4]);
     }
 }
 #endif /* ifdef LEADER_ENABLE */

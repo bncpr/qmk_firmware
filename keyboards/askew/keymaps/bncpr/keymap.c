@@ -156,6 +156,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX,  KC_APP,   KC_SPC,   KC_TAB,      XXXXXXX,  XXXXXXX,  _______,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
+    // [_FUN] = LAYOUT_split_3x6_4(
+    //     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+    //     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+    //     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    // //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+    //                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    // //                                -------   -------   -------   -------      -------   -------   -------   -------
+    // ),
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -213,6 +223,32 @@ void leader_end_user(void) {
         SEND_STRING("git status\n");
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         SEND_STRING("sudo git clean -xdf");
+    }
+    // Equations
+    else if (leader_sequence_two_keys(KC_SPC, KC_M)) {
+        SEND_STRING(" - ");
+    } else if (leader_sequence_two_keys(KC_SPC, KC_P)) {
+        SEND_STRING(" + ");
+    } else if (leader_sequence_two_keys(KC_SPC, KC_E)) {
+        SEND_STRING(" = ");
+    } else if (leader_sequence_three_keys(KC_SPC, KC_E, KC_E)) {
+        SEND_STRING(" == ");
+    } else if (leader_sequence_three_keys(KC_SPC, KC_O, KC_R)) {
+        SEND_STRING(" || ");
+    } else if (leader_sequence_three_keys(KC_SPC, KC_A, KC_N)) {
+        SEND_STRING(" && ");
+    }
+    // Javascript
+    else if (leader_sequence_two_keys(KC_J, KC_A)) {
+        SEND_STRING(" => ");
+    } else if (leader_sequence_two_keys(KC_J, KC_E)) {
+        SEND_STRING(" === ");
+    } else if (leader_sequence_three_keys(KC_J, KC_N, KC_E)) {
+        SEND_STRING(" !== ");
+    }
+    // Arrows
+    else if (leader_sequence_two_keys(KC_A, KC_R)) {
+        SEND_STRING("->");
     }
     // Secrets
     else if (leader_sequence_two_keys(KC_M, KC_M)) {

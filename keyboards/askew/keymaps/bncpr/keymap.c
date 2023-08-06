@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),XXXXXXX,
+        KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
+        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
         KC_ESC,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,      KC_L,    KC_U,     KC_Y,     KC_QUOT,  CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  XXXXXXX,
+        KC_LBRC,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
+        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_NAV] = LAYOUT_split_3x6_4(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
+        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, CW_TOGG,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_MOUSE] = LAYOUT_split_3x6_4(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         REDO,     PASTE,     COPY,    CUT,      UNDO,     XXXXXXX,
+        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN4,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_MEDIA] = LAYOUT_split_3x6_4(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         KC_MPRV,  KC_VOLD,  KC_VOLU,  KC_MNXT,  KC_MUTE,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         TG(_GAME),QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  QK_MAKE,  QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         QK_BOOT,  QK_MAKE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -255,6 +255,8 @@ void leader_end_user(void) {
         send_string_P(secrets[1]);
     } else if (leader_sequence_two_keys(KC_M, KC_P)) {
         send_string_P(secrets[2]);
+    } else if (leader_sequence_three_keys(KC_M, KC_P, KC_N)) {
+        send_string_P(secrets[5]);
     } else if (leader_sequence_two_keys(KC_S, KC_A)) {
         send_string_P(secrets[3]);
     } else if (leader_sequence_two_keys(KC_S, KC_B)) {

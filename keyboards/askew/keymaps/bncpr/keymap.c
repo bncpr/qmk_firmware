@@ -254,13 +254,11 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_M, KC_G)) {
         send_string_P(secrets[1]);
     } else if (leader_sequence_two_keys(KC_M, KC_P)) {
-        send_string_P(secrets[2]);
-    } else if (leader_sequence_three_keys(KC_M, KC_P, KC_N)) {
-        send_string_P(secrets[5]);
-    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
-        send_string_P(secrets[3]);
-    } else if (leader_sequence_two_keys(KC_S, KC_B)) {
         send_string_P(secrets[4]);
+    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
+        send_string_P(secrets[2]);
+    } else if (leader_sequence_two_keys(KC_S, KC_B)) {
+        send_string_P(secrets[3]);
     }
 }
 #endif /* ifdef LEADER_ENABLE */

@@ -28,8 +28,6 @@ enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
-    CH_LANG,
-    ALT_TAB,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -54,6 +52,8 @@ enum custom_keycodes {
 #define CUT C(KC_X)
 #define COPY C(KC_C)
 #define PASTE C(KC_V)
+#define ALT_TAB A(KC_TAB)
+#define CH_LANG G(KC_SPACE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -200,8 +200,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
-        DO_IF_PRESSED(CH_LANG, tap_code16(LGUI(KC_SPACE)));
-        DO_IF_PRESSED(ALT_TAB, tap_code16(LALT(KC_TAB)));
     }
     return true;
 }

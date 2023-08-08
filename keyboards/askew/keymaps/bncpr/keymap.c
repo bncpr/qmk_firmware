@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
+        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
+        QK_LEAD,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  QK_LEAD,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------

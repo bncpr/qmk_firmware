@@ -255,6 +255,8 @@ void leader_end_user(void) {
         send_string_P(secrets[1]);
     } else if (leader_sequence_two_keys(KC_M, KC_P)) {
         send_string_P(secrets[4]);
+    } else if (leader_sequence_two_keys(KC_M, KC_I)) {
+        send_string_P(secrets[5]);
     } else if (leader_sequence_two_keys(KC_S, KC_A)) {
         send_string_P(secrets[2]);
     } else if (leader_sequence_two_keys(KC_S, KC_B)) {

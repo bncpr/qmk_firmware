@@ -9,11 +9,13 @@
 #if __has_include("secrets.h")
 #include "secrets.h"
 #endif
+#include "keymap_steno.h"
 
 enum layers {
     _QWERTY,
     _COLEMAK_DH,
     _DVORAK,
+    _PLOVER,
     _GAME,
     _MEDIA,
     _NAV,
@@ -97,6 +99,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       TG(_GAME),XXXXXXX,  KC_LCTL,  KC_SPC,      _______,  _______,  _______,  _______
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
+// [_PLOVER] = LAYOUT_planck_grid(
+//   STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC ,
+//   STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR ,
+//   XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR ,
+//   EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, XXXXXXX, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2
+// ),
+    [_PLOVER] = LAYOUT_split_3x6_4(
+        STN_N1,   STN_N2,   STN_N3,   STN_N4,   STN_N5,   STN_N6,                          STN_N7,   STN_N8,   STN_N9,   STN_NA,   STN_NB,   STN_NC,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        STN_FN,   STN_S1,   STN_TL,   STN_PL,   STN_HL,   STN_ST1,                         STN_ST3,  STN_FR,   STN_PR,   STN_LR,   STN_TR,   STN_DR,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  STN_S2,   STN_KL,   STN_WL,   STN_RL,   STN_ST2,                         STN_ST4,  STN_RR,   STN_BR,   STN_GR,   STN_SR,   STN_ZR,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                    TG(_PLOVER),STN_PWR,  STN_A,    STN_O,       STN_E,    STN_U,    STN_RE1,  STN_RE2
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
     [_NAV] = LAYOUT_split_3x6_4(
         XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -170,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         TG(_GAME),QWERTY,   COLEMAK,  DVORAK,   XXXXXXX,  XXXXXXX,
+        XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         TG(_GAME),QWERTY,   COLEMAK,  DVORAK, TG(_PLOVER),XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         QK_BOOT,  QK_MAKE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -328,6 +346,7 @@ static void render_status(void) {
     switch (cur_code) {
         OLED_WRITE_LAYER(_DVORAK, "Dvorak");
         OLED_WRITE_LAYER(_GAME, "Game");
+        OLED_WRITE_LAYER(_PLOVER, "Plover");
         OLED_WRITE_LAYER(_NAV, "Navigation");
         OLED_WRITE_LAYER(_NUM, "Numbers");
         OLED_WRITE_LAYER(_MOUSE, "Mouse");
@@ -364,3 +383,11 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
+
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(_PLOVER)) {
+        return false;
+    }
+
+    return true;
+}

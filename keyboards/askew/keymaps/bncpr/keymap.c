@@ -383,3 +383,11 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
+
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(_PLOVER)) {
+        return false;
+    }
+
+    return true;
+}

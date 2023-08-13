@@ -5,7 +5,6 @@
 #include "oled_sugar/oled_sugar.h"
 #include "transactions.h"
 #endif
-#include "g/keymap_combo.h"
 #if __has_include("secrets.h")
 #include "secrets.h"
 #endif
@@ -384,6 +383,21 @@ bool oled_task_user(void) {
 }
 #endif
 
+#ifdef COMBO_ENABLE
+
+enum combos {
+    THUMBL_COMBO,
+    THUMBR_COMBO,
+};
+
+const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
+const uint16_t PROGMEM thumbr_combo[] = {THUMBR1, THUMBR2, COMBO_END};
+
+combo_t key_combos[] = {
+    [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
+    [THUMBR_COMBO] = COMBO(thumbr_combo, THUMBR3),
+};
+
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(_PLOVER)) {
         return false;
@@ -391,3 +405,4 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
     return true;
 }
+#endif

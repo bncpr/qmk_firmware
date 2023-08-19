@@ -29,6 +29,12 @@ enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
+    PAREN_MACRO,
+    SQBRC_MACRO,
+    CBRC_MACRO,
+    QUOT_MACRO,
+    SQUOT_MACRO,
+    TRIAG_MACRO,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -217,6 +223,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
+        DO_IF_PRESSED(PAREN_MACRO, SEND_STRING("()" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(SQBRC_MACRO, SEND_STRING("[]" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(CBRC_MACRO, SEND_STRING("{}" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(QUOT_MACRO, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(SQUOT_MACRO, SEND_STRING("''" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(TRIAG_MACRO, SEND_STRING("<>" SS_TAP(X_LEFT)));
     }
     return true;
 }
@@ -386,22 +398,43 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
-    IM_R_ESC,
+    IM_R_ESC_COMBO,
     THUMBL_COMBO,
     THUMBR_COMBO,
-    THUMBR_SYM,
+    THUMBR_SYM_COMBO,
+    SHIFT_PASTE_COMBO,
+    PAREN_COMBO,
+    SQBRC_COMBO,
+    CBRC_COMBO,
+    QUOTE_COMBO,
+    SQUOTE_COMBO,
+    TRIAG_COMBO,
 };
 
-const uint16_t PROGMEM im_r_esc[] = {I(KC_J), M(KC_K), COMBO_END};
+const uint16_t PROGMEM im_r_esc_combo[] = {I(KC_J), M(KC_K), COMBO_END};
 const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
 const uint16_t PROGMEM thumbr_combo[] = {THUMBR1, THUMBR2, COMBO_END};
-const uint16_t PROGMEM thumbr_sym[] = {KC_RPRN, KC_UNDS, COMBO_END};
+const uint16_t PROGMEM thumbr_sym_combo[] = {KC_RPRN, KC_UNDS, COMBO_END};
+const uint16_t PROGMEM shift_paste_combo[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM paren_combo[] = {I(KC_F), I(KC_J), COMBO_END};
+const uint16_t PROGMEM sqbrc_combo[] = {M(KC_D), M(KC_K), COMBO_END};
+const uint16_t PROGMEM cbrc_combo[] = {R(KC_S), R(KC_L), COMBO_END};
+const uint16_t PROGMEM quote_combo[] = {KC_V, KC_M, COMBO_END};
+const uint16_t PROGMEM squote_combo[] = {KC_C, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
     [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
     [THUMBR_COMBO] = COMBO(thumbr_combo, THUMBR3),
-    [THUMBR_SYM] = COMBO(thumbr_sym, KC_LPRN),
-    [IM_R_ESC] = COMBO(im_r_esc, KC_ESC),
+    [THUMBR_SYM_COMBO] = COMBO(thumbr_sym_combo, KC_LPRN),
+    [IM_R_ESC_COMBO] = COMBO(im_r_esc_combo, KC_ESC),
+    [SHIFT_PASTE_COMBO] = COMBO(shift_paste_combo, S(C(KC_V))),
+    [PAREN_COMBO] = COMBO(paren_combo, PAREN_MACRO),
+    [SQBRC_COMBO] = COMBO(sqbrc_combo, SQBRC_MACRO),
+    [CBRC_COMBO] = COMBO(cbrc_combo, CBRC_MACRO),
+    [QUOTE_COMBO] = COMBO(quote_combo, QUOT_MACRO),
+    [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT_MACRO),
+    [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
 };
 
 #define COMBO_REF_DEFAULT _QWERTY

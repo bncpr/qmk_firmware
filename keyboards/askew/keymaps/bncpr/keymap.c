@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_UNDS,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_MINS,
+        KC_COLN,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_SCLN,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_UNDS,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_MINS,
+        KC_COLN,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_SCLN,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -386,17 +386,37 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
+    IM_R_ESC,
     THUMBL_COMBO,
     THUMBR_COMBO,
+    THUMBR_SYM,
 };
 
+const uint16_t PROGMEM im_r_esc[] = {I(KC_J), M(KC_K), COMBO_END};
 const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
 const uint16_t PROGMEM thumbr_combo[] = {THUMBR1, THUMBR2, COMBO_END};
+const uint16_t PROGMEM thumbr_sym[] = {KC_RPRN, KC_UNDS, COMBO_END};
 
 combo_t key_combos[] = {
     [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
     [THUMBR_COMBO] = COMBO(thumbr_combo, THUMBR3),
+    [THUMBR_SYM] = COMBO(thumbr_sym, KC_LPRN),
+    [IM_R_ESC] = COMBO(im_r_esc, KC_ESC),
 };
+
+#define COMBO_REF_DEFAULT _QWERTY
+
+uint8_t combo_ref_from_layer(uint8_t layer) {
+    switch (get_highest_layer(layer_state)) {
+        case _SYM:
+            return _SYM;
+        case _NAV:
+            return _NAV;
+        default:
+            return _QWERTY;
+    }
+    return layer; // important if default is not in case.
+}
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(_PLOVER)) {

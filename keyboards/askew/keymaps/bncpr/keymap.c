@@ -65,7 +65,7 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_4(
-        KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     CH_LANG,
+        ALT_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_COLEMAK_DH] = LAYOUT_split_3x6_4(
-        KC_ESC,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,      KC_L,    KC_U,     KC_Y,     KC_QUOT,  CH_LANG,
+        ALT_TAB,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,      KC_L,    KC_U,     KC_Y,     KC_QUOT,  CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_DVORAK] = LAYOUT_split_3x6_4(
-        KC_ESC,   KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,                            KC_F,      KC_G,    KC_C,     KC_R,     KC_L,     CH_LANG,
+        ALT_TAB,   KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,                            KC_F,      KC_G,    KC_C,     KC_R,     KC_L,     CH_LANG,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  P(KC_A),  R(KC_O),  M(KC_E),  I(KC_U),  F(KC_I),                         F(KC_D),  I(KC_H),  M(KC_T),  R(KC_N),  P(KC_S),  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -398,7 +398,9 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
-    IM_R_ESC_COMBO,
+    IM_R_ESC_COMBO, // Index + Middle Right Hand
+    ID_R_COMBO,     // Index Down Right
+    ID_L_COMBO,     // Index Down Left
     THUMBL_COMBO,
     THUMBR_COMBO,
     THUMBR_SYM_COMBO,
@@ -412,6 +414,8 @@ enum combos {
 };
 
 const uint16_t PROGMEM im_r_esc_combo[] = {I(KC_J), M(KC_K), COMBO_END};
+const uint16_t PROGMEM id_r_combo[] = {I(KC_J), KC_M, COMBO_END};
+const uint16_t PROGMEM id_l_combo[] = {I(KC_F), KC_V, COMBO_END};
 const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
 const uint16_t PROGMEM thumbr_combo[] = {THUMBR1, THUMBR2, COMBO_END};
 const uint16_t PROGMEM thumbr_sym_combo[] = {KC_RPRN, KC_UNDS, COMBO_END};
@@ -428,6 +432,8 @@ combo_t key_combos[] = {
     [THUMBR_COMBO] = COMBO(thumbr_combo, THUMBR3),
     [THUMBR_SYM_COMBO] = COMBO(thumbr_sym_combo, KC_LPRN),
     [IM_R_ESC_COMBO] = COMBO(im_r_esc_combo, KC_ESC),
+    [ID_R_COMBO] = COMBO(id_r_combo, KC_MINS),
+    [ID_L_COMBO] = COMBO(id_l_combo, KC_UNDS),
     [SHIFT_PASTE_COMBO] = COMBO(shift_paste_combo, S(C(KC_V))),
     [PAREN_COMBO] = COMBO(paren_combo, PAREN_MACRO),
     [SQBRC_COMBO] = COMBO(sqbrc_combo, SQBRC_MACRO),

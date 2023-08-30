@@ -35,6 +35,7 @@ enum custom_keycodes {
     QUOT_MACRO,
     SQUOT_MACRO,
     TRIAG_MACRO,
+    CA_PASTE_MACRO,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -229,6 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(QUOT_MACRO, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(SQUOT_MACRO, SEND_STRING("''" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(TRIAG_MACRO, SEND_STRING("<>" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(CA_PASTE_MACRO, tap_code16(C(KC_A)); tap_code16(PASTE));
     }
     return true;
 }
@@ -411,6 +413,7 @@ enum combos {
     QUOTE_COMBO,
     SQUOTE_COMBO,
     TRIAG_COMBO,
+    CA_PASTE_COMBO,
 };
 
 const uint16_t PROGMEM im_r_esc_combo[] = {I(KC_J), M(KC_K), COMBO_END};
@@ -426,6 +429,7 @@ const uint16_t PROGMEM cbrc_combo[] = {R(KC_S), R(KC_L), COMBO_END};
 const uint16_t PROGMEM quote_combo[] = {KC_V, KC_M, COMBO_END};
 const uint16_t PROGMEM squote_combo[] = {KC_C, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
+const uint16_t PROGMEM ca_paste_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 
 combo_t key_combos[] = {
     [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
@@ -441,6 +445,7 @@ combo_t key_combos[] = {
     [QUOTE_COMBO] = COMBO(quote_combo, QUOT_MACRO),
     [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT_MACRO),
     [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
+    [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE_MACRO),
 };
 
 #define COMBO_REF_DEFAULT _QWERTY

@@ -400,9 +400,11 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
-    IM_R_ESC_COMBO, // Index + Middle Right Hand
-    ID_R_COMBO,     // Index Down Right
-    ID_L_COMBO,     // Index Down Left
+    IM_R_COMBO, // Index + Middle Right Hand
+    RP_R_COMBO, // Ring + Pinky Right Hand
+    RP_L_COMBO, // Ring + Pinky Left Hand
+    ID_R_COMBO, // Index Down Right
+    ID_L_COMBO, // Index Down Left
     THUMBL_COMBO,
     THUMBR_COMBO,
     THUMBR_SYM_COMBO,
@@ -416,7 +418,9 @@ enum combos {
     CA_PASTE_COMBO,
 };
 
-const uint16_t PROGMEM im_r_esc_combo[] = {I(KC_J), M(KC_K), COMBO_END};
+const uint16_t PROGMEM im_r_combo[] = {I(KC_J), M(KC_K), COMBO_END};
+const uint16_t PROGMEM rp_r_combo[] = {R(KC_L), P(KC_QUOT), COMBO_END};
+const uint16_t PROGMEM rp_l_combo[] = {R(KC_S), P(KC_A), COMBO_END};
 const uint16_t PROGMEM id_r_combo[] = {I(KC_J), KC_M, COMBO_END};
 const uint16_t PROGMEM id_l_combo[] = {I(KC_F), KC_V, COMBO_END};
 const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
@@ -435,7 +439,9 @@ combo_t key_combos[] = {
     [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
     [THUMBR_COMBO] = COMBO(thumbr_combo, THUMBR3),
     [THUMBR_SYM_COMBO] = COMBO(thumbr_sym_combo, KC_LPRN),
-    [IM_R_ESC_COMBO] = COMBO(im_r_esc_combo, KC_ESC),
+    [IM_R_COMBO] = COMBO(im_r_combo, KC_ESC),
+    [RP_R_COMBO] = COMBO(rp_r_combo, KC_END),
+    [RP_L_COMBO] = COMBO(rp_l_combo, KC_HOME),
     [ID_R_COMBO] = COMBO(id_r_combo, KC_MINS),
     [ID_L_COMBO] = COMBO(id_l_combo, KC_UNDS),
     [SHIFT_PASTE_COMBO] = COMBO(shift_paste_combo, S(C(KC_V))),

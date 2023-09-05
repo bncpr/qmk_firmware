@@ -428,8 +428,18 @@ enum combos {
     MR_L_COMBO,  // Middle + Ring Right Hand
     RP_R_COMBO,  // Ring + Pinky Right Hand
     RP_L_COMBO,  // Ring + Pinky Left Hand
-    ID_R_COMBO,  // Index Down Right
-    ID_L_COMBO,  // Index Down Left
+    ID_R_COMBO,  // Index Down Right Hand
+    FU_R_COMBO,  // Far Up Right Hand
+    IU_R_COMBO,  // Index Up Right Hand
+    MU_R_COMBO,  // Middle Up Right Hand
+    RU_R_COMBO,  // Ring Up Right Hand
+    PU_R_COMBO,  // Pinky Up Right Hand
+    ID_L_COMBO,  // Index Down Left Hand
+    FU_L_COMBO,  // Far Up Left Hand
+    IU_L_COMBO,  // Index Up Left Hand
+    MU_L_COMBO,  // Middle Up Left Hand
+    RU_L_COMBO,  // Ring Up Left Hand
+    PU_L_COMBO,  // Pinky Up Left Hand
     WORD_I_COMBO,
     THUMBL_COMBO,
     THUMBR_COMBO,
@@ -459,6 +469,16 @@ const uint16_t PROGMEM rp_r_combo[] = {R(KC_L), P(KC_QUOT), COMBO_END};
 const uint16_t PROGMEM rp_l_combo[] = {R(KC_S), P(KC_A), COMBO_END};
 const uint16_t PROGMEM id_r_combo[] = {I(KC_J), KC_M, COMBO_END};
 const uint16_t PROGMEM id_l_combo[] = {I(KC_F), KC_V, COMBO_END};
+const uint16_t PROGMEM fu_r_combo[] = {F(KC_G), KC_T, COMBO_END};
+const uint16_t PROGMEM iu_r_combo[] = {I(KC_F), KC_R, COMBO_END};
+const uint16_t PROGMEM mu_r_combo[] = {M(KC_D), KC_E, COMBO_END};
+const uint16_t PROGMEM ru_r_combo[] = {R(KC_S), KC_W, COMBO_END};
+const uint16_t PROGMEM pu_r_combo[] = {P(KC_A), KC_Q, COMBO_END};
+const uint16_t PROGMEM fu_l_combo[] = {F(KC_H), KC_Y, COMBO_END};
+const uint16_t PROGMEM iu_l_combo[] = {I(KC_J), KC_U, COMBO_END};
+const uint16_t PROGMEM mu_l_combo[] = {M(KC_K), KC_I, COMBO_END};
+const uint16_t PROGMEM ru_l_combo[] = {R(KC_L), KC_O, COMBO_END};
+const uint16_t PROGMEM pu_l_combo[] = {P(KC_QUOT), KC_P, COMBO_END};
 const uint16_t PROGMEM thumbl_combo[] = {THUMBL1, THUMBL2, COMBO_END};
 const uint16_t PROGMEM thumbr_combo[] = {THUMBR1, THUMBR2, COMBO_END};
 const uint16_t PROGMEM thumbr_sym_combo[] = {KC_RPRN, KC_UNDS, COMBO_END};
@@ -490,6 +510,16 @@ combo_t key_combos[] = {
     [RP_L_COMBO] = COMBO(rp_l_combo, KC_HOME),
     [ID_R_COMBO] = COMBO(id_r_combo, KC_MINS),
     [ID_L_COMBO] = COMBO(id_l_combo, KC_UNDS),
+    [FU_R_COMBO] = COMBO(fu_r_combo, KC_5),
+    [IU_R_COMBO] = COMBO(iu_r_combo, KC_4),
+    [MU_R_COMBO] = COMBO(mu_r_combo, KC_3),
+    [RU_R_COMBO] = COMBO(ru_r_combo, KC_2),
+    [PU_R_COMBO] = COMBO(pu_r_combo, KC_1),
+    [FU_L_COMBO] = COMBO(fu_l_combo, KC_6),
+    [IU_L_COMBO] = COMBO(iu_l_combo, KC_7),
+    [MU_L_COMBO] = COMBO(mu_l_combo, KC_8),
+    [RU_L_COMBO] = COMBO(ru_l_combo, KC_9),
+    [PU_L_COMBO] = COMBO(pu_l_combo, KC_0),
     [SHIFT_PASTE_COMBO] = COMBO(shift_paste_combo, S(C(KC_V))),
     [PAREN_COMBO] = COMBO(paren_combo, PAREN_MACRO),
     [SQBRC_COMBO] = COMBO(sqbrc_combo, SQBRC_MACRO),

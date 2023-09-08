@@ -312,23 +312,6 @@ void leader_end_user(void) {
 }
 #endif /* ifdef LEADER_ENABLE */
 
-// bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         // Capture all mod-tap keycodes.
-//         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-//             if (keycode == SFT_T(KC_BSPC) || keycode == CTL_T(KC_SPC)) {
-//                 // Disable HOLD_ON_OTHER_KEY_PRESS for LCTL_T(KC_A)
-//                 // aka enable IGNORE_MOD_TAP_INTERRUPT for LCTL_T(KC_A).
-//                 return false;
-//             } else {
-//                 // Enable HOLD_ON_OTHER_KEY_PRESS for every other mod-tap keycode.
-//                 return true;
-//             }
-//         default:
-//             return false;
-//     }
-// }
-
 #ifdef OLED_ENABLE
 
 #ifdef OLED_SUGAR

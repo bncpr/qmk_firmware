@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, CW_TOGG,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  ALT_TAB,  XXXXXXX,                         KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_DEL,   XXXXXXX,                         KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,     KC_ENT,   LT(_ADJUST, KC_BSPC),   KC_DEL,   XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------

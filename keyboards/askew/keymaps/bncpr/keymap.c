@@ -418,6 +418,7 @@ bool oled_task_user(void) {
 enum combos {
     IM_R_COMBO,  // Index + Middle Right Hand
     IT1_L_COMBO, // Index + Thumb1 Left Hand
+    IT1_R_COMBO, // Index + Thumb1 Right Hand
     IT2_L_COMBO, // Index + Thumb2 Left Hand
     MT1_L_COMBO, // Middle + Thumb1 Left Hand
     MT2_L_COMBO, // Middle + Thumb2 Left Hand
@@ -456,6 +457,7 @@ enum combos {
 
 const uint16_t PROGMEM im_r_combo[] = {I(KC_J), M(KC_K), COMBO_END};
 const uint16_t PROGMEM it1_l_combo[] = {THUMBL1, I(KC_F), COMBO_END};
+const uint16_t PROGMEM it1_r_combo[] = {THUMBR1, I(KC_J), COMBO_END};
 const uint16_t PROGMEM it2_l_combo[] = {THUMBL2, I(KC_F), COMBO_END};
 const uint16_t PROGMEM mt1_l_combo[] = {THUMBL1, M(KC_D), COMBO_END};
 const uint16_t PROGMEM mt2_l_combo[] = {THUMBL2, M(KC_D), COMBO_END};
@@ -497,6 +499,7 @@ combo_t key_combos[] = {
     [THUMBR_SYM_COMBO] = COMBO(thumbr_sym_combo, KC_LPRN),
     [IM_R_COMBO] = COMBO(im_r_combo, KC_ESC),
     [IT1_L_COMBO] = COMBO(it1_l_combo, SPC_MINS_MACRO),
+    [IT1_R_COMBO] = COMBO(it1_r_combo, OSM_SFT),
     [IT2_L_COMBO] = COMBO(it2_l_combo, SPC_MINS_EQ_MACRO),
     [MT1_L_COMBO] = COMBO(mt1_l_combo, SPC_PLS_MACRO),
     [MT2_L_COMBO] = COMBO(mt2_l_combo, SPC_PLS_EQ_MACRO),

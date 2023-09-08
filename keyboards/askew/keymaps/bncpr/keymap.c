@@ -44,6 +44,10 @@ enum custom_keycodes {
     SPC_EQ_EQ_MACRO,
     SPC_NOT_EQ_MACRO,
     WORD_I_MACRO,
+    SECRET_0_MACRO,
+    SECRET_1_MACRO,
+    SECRET_2_MACRO,
+    SECRET_3_MACRO,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -247,6 +251,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_EQ_EQ_MACRO, SEND_STRING(" == "));
         DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
+        DO_IF_PRESSED(SECRET_0_MACRO, send_string_P(secrets[0]));
+        DO_IF_PRESSED(SECRET_1_MACRO, send_string_P(secrets[1]));
+        DO_IF_PRESSED(SECRET_2_MACRO, send_string_P(secrets[2]));
+        DO_IF_PRESSED(SECRET_3_MACRO, send_string_P(secrets[3]));
     }
     return true;
 }
@@ -436,6 +444,10 @@ enum combos {
     SQUOTE_COMBO,
     TRIAG_COMBO,
     CA_PASTE_COMBO,
+    SECRET_0_COMBO,
+    SECRET_1_COMBO,
+    SECRET_2_COMBO,
+    SECRET_3_COMBO,
 };
 
 const uint16_t PROGMEM im_r_combo[] = {I(KC_J), M(KC_K), COMBO_END};
@@ -475,6 +487,10 @@ const uint16_t PROGMEM quote_combo[] = {KC_V, KC_M, COMBO_END};
 const uint16_t PROGMEM squote_combo[] = {KC_C, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
 const uint16_t PROGMEM ca_paste_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM secret_0_combo[] = {I(KC_J), KC_I, R(KC_L), COMBO_END};
+const uint16_t PROGMEM secret_1_combo[] = {I(KC_J), KC_I, R(KC_L), KC_X, COMBO_END};
+const uint16_t PROGMEM secret_2_combo[] = {I(KC_J), KC_I, R(KC_L), KC_C, COMBO_END};
+const uint16_t PROGMEM secret_3_combo[] = {I(KC_J), KC_I, R(KC_L), KC_V, COMBO_END};
 
 combo_t key_combos[] = {
     [THUMBL_COMBO] = COMBO(thumbl_combo, THUMBL3),
@@ -514,6 +530,10 @@ combo_t key_combos[] = {
     [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT_MACRO),
     [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
     [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE_MACRO),
+    [SECRET_0_COMBO] = COMBO(secret_0_combo, SECRET_0_MACRO),
+    [SECRET_1_COMBO] = COMBO(secret_1_combo, SECRET_1_MACRO),
+    [SECRET_2_COMBO] = COMBO(secret_2_combo, SECRET_2_MACRO),
+    [SECRET_3_COMBO] = COMBO(secret_3_combo, SECRET_3_MACRO),
 };
 
 #define COMBO_REF_DEFAULT _QWERTY

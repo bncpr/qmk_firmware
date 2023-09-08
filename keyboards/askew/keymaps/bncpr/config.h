@@ -16,10 +16,10 @@
 
 #define TAPPING_TERM 250
 #define QUICK_TAP_TERM 120
+#define PERMISSIVE_HOLD
 // #define TAPPING_TERM_PER_KEY
 // #define TAPPING_FORCE_HOLD
 // #define HOLD_ON_OTHER_KEY_PRESS
-// #define PERMISSIVE_HOLD
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA

@@ -39,6 +39,7 @@ enum custom_keycodes {
     SPC_MINS_MACRO,
     SPC_PLS_MACRO,
     SPC_EQ_MACRO,
+    SPC_AST_MACRO,
     SPC_MINS_EQ_MACRO,
     SPC_PLS_EQ_MACRO,
     SPC_EQ_EQ_MACRO,
@@ -246,6 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_MINS_MACRO, SEND_STRING(" - "));
         DO_IF_PRESSED(SPC_PLS_MACRO, SEND_STRING(" + "));
         DO_IF_PRESSED(SPC_EQ_MACRO, SEND_STRING(" = "));
+        DO_IF_PRESSED(SPC_AST_MACRO, SEND_STRING(" * "));
         DO_IF_PRESSED(SPC_MINS_EQ_MACRO, SEND_STRING(" -= "));
         DO_IF_PRESSED(SPC_PLS_EQ_MACRO, SEND_STRING(" += "));
         DO_IF_PRESSED(SPC_EQ_EQ_MACRO, SEND_STRING(" == "));
@@ -415,6 +417,7 @@ enum combos {
     MT2_L_COMBO, // Middle + Thumb2 Left Hand
     RT1_L_COMBO, // Ring + Thumb1 Left Hand
     RT2_L_COMBO, // Ring + Thumb2 Left Hand
+    PT1_L_COMBO, // Pinky + Thumb1 Left Hand
     PT2_L_COMBO, // Pinky + Thumb2 Left Hand
     MR_R_COMBO,  // Middle + Ring Right Hand
     MR_L_COMBO,  // Middle + Ring Right Hand
@@ -458,6 +461,7 @@ const uint16_t PROGMEM mt1_l_combo[] = {THUMBL1, M(KC_D), COMBO_END};
 const uint16_t PROGMEM mt2_l_combo[] = {THUMBL2, M(KC_D), COMBO_END};
 const uint16_t PROGMEM rt1_l_combo[] = {THUMBL1, R(KC_S), COMBO_END};
 const uint16_t PROGMEM rt2_l_combo[] = {THUMBL2, R(KC_S), COMBO_END};
+const uint16_t PROGMEM pt1_l_combo[] = {THUMBL1, P(KC_A), COMBO_END};
 const uint16_t PROGMEM pt2_l_combo[] = {THUMBL2, P(KC_A), COMBO_END};
 const uint16_t PROGMEM word_i_combo[] = {THUMBL1, KC_I, COMBO_END};
 const uint16_t PROGMEM mr_r_combo[] = {M(KC_K), R(KC_L), COMBO_END};
@@ -504,6 +508,7 @@ combo_t key_combos[] = {
     [MT2_L_COMBO] = COMBO(mt2_l_combo, SPC_PLS_EQ_MACRO),
     [RT1_L_COMBO] = COMBO(rt1_l_combo, SPC_EQ_MACRO),
     [RT2_L_COMBO] = COMBO(rt2_l_combo, SPC_EQ_EQ_MACRO),
+    [PT1_L_COMBO] = COMBO(pt1_l_combo, SPC_AST_MACRO),
     [PT2_L_COMBO] = COMBO(pt2_l_combo, SPC_NOT_EQ_MACRO),
     [WORD_I_COMBO] = COMBO(word_i_combo, WORD_I_MACRO),
     [MR_R_COMBO] = COMBO(mr_r_combo, KC_RIGHT),

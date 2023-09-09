@@ -44,6 +44,7 @@ enum custom_keycodes {
     SPC_PLS_EQ_MACRO,
     SPC_EQ_EQ_MACRO,
     SPC_NOT_EQ_MACRO,
+    SPC_COMMA_MACRO,
     WORD_I_MACRO,
     SECRET_0_MACRO,
     SECRET_1_MACRO,
@@ -252,6 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_PLS_EQ_MACRO, SEND_STRING(" += "));
         DO_IF_PRESSED(SPC_EQ_EQ_MACRO, SEND_STRING(" == "));
         DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
+        DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
         DO_IF_PRESSED(SECRET_0_MACRO, send_string_P(secrets[0]));
         DO_IF_PRESSED(SECRET_1_MACRO, send_string_P(secrets[1]));
@@ -438,6 +440,7 @@ enum combos {
     RU_L_COMBO,  // Ring Up Left Hand
     PU_L_COMBO,  // Pinky Up Left Hand
     WORD_I_COMBO,
+    SPC_COMMA_COMBO,
     THUMBL_COMBO,
     THUMBR_COMBO,
     THUMBR_SYM_COMBO,
@@ -466,6 +469,7 @@ const uint16_t PROGMEM rt2_l_combo[] = {THUMBL2, R(KC_S), COMBO_END};
 const uint16_t PROGMEM pt1_l_combo[] = {THUMBL1, P(KC_A), COMBO_END};
 const uint16_t PROGMEM pt2_l_combo[] = {THUMBL2, P(KC_A), COMBO_END};
 const uint16_t PROGMEM word_i_combo[] = {THUMBL1, KC_I, COMBO_END};
+const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM mr_r_combo[] = {M(KC_K), R(KC_L), COMBO_END};
 const uint16_t PROGMEM mr_l_combo[] = {M(KC_D), R(KC_S), COMBO_END};
 const uint16_t PROGMEM rp_r_combo[] = {R(KC_L), P(KC_QUOT), COMBO_END};
@@ -515,6 +519,7 @@ combo_t key_combos[] = {
     [PT1_L_COMBO] = COMBO(pt1_l_combo, SPC_AST_MACRO),
     [PT2_L_COMBO] = COMBO(pt2_l_combo, SPC_NOT_EQ_MACRO),
     [WORD_I_COMBO] = COMBO(word_i_combo, WORD_I_MACRO),
+    [SPC_COMMA_COMBO] = COMBO(spc_comma_combo, SPC_COMMA_MACRO),
     [MR_R_COMBO] = COMBO(mr_r_combo, KC_RIGHT),
     [MR_L_COMBO] = COMBO(mr_l_combo, KC_LEFT),
     [RP_R_COMBO] = COMBO(rp_r_combo, KC_END),

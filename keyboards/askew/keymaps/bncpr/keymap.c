@@ -574,3 +574,14 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 #endif
+
+#ifdef RETRO_TAPPING_PER_KEY
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.key.row == 5 || record->event.key.row == 1) {
+        return true;
+    }
+    return false;
+}
+
+#endif

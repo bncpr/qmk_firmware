@@ -5,9 +5,6 @@
 #include "oled_sugar/oled_sugar.h"
 #include "transactions.h"
 #endif
-#if __has_include("secrets.h")
-#include "secrets.h"
-#endif
 #include "keymap_steno.h"
 
 enum layers {
@@ -26,7 +23,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
+    QWERTY = NEW_SAFE_RANGE,
     COLEMAK,
     DVORAK,
     PAREN_MACRO,
@@ -46,10 +43,6 @@ enum custom_keycodes {
     SPC_NOT_EQ_MACRO,
     SPC_COMMA_MACRO,
     WORD_I_MACRO,
-    SECRET_0_MACRO,
-    SECRET_1_MACRO,
-    SECRET_2_MACRO,
-    SECRET_3_MACRO,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -220,14 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // extern uint16_t keyCntr;
 
-#define DO_IF_PRESSED(keycode, expr) \
-    case keycode:                    \
-        if (record->event.pressed) { \
-            expr;                    \
-        }                            \
-        return false;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_SUGAR
     if (record->event.pressed) {
         keyCntr++;
@@ -255,10 +241,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
         DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
-        DO_IF_PRESSED(SECRET_0_MACRO, send_string_P(secrets[0]));
-        DO_IF_PRESSED(SECRET_1_MACRO, send_string_P(secrets[1]));
-        DO_IF_PRESSED(SECRET_2_MACRO, send_string_P(secrets[2]));
-        DO_IF_PRESSED(SECRET_3_MACRO, send_string_P(secrets[3]));
     }
     return true;
 }
@@ -306,20 +288,6 @@ void leader_end_user(void) {
     // Arrows
     else if (leader_sequence_two_keys(KC_A, KC_R)) {
         SEND_STRING("->");
-    }
-    // Secrets
-    else if (leader_sequence_two_keys(KC_M, KC_M)) {
-        send_string_P(secrets[0]);
-    } else if (leader_sequence_two_keys(KC_M, KC_G)) {
-        send_string_P(secrets[1]);
-    } else if (leader_sequence_two_keys(KC_M, KC_P)) {
-        send_string_P(secrets[4]);
-    } else if (leader_sequence_two_keys(KC_M, KC_I)) {
-        send_string_P(secrets[5]);
-    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
-        send_string_P(secrets[2]);
-    } else if (leader_sequence_two_keys(KC_S, KC_B)) {
-        send_string_P(secrets[3]);
     }
 }
 #endif /* ifdef LEADER_ENABLE */

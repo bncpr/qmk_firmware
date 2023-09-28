@@ -1,0 +1,1 @@
+#define CAPS_WORD_INVERT_ON_SHIFT

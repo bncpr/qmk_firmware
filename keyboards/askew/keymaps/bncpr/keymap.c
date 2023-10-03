@@ -37,10 +37,14 @@ enum custom_keycodes {
     SPC_PLS_MACRO,
     SPC_EQ_MACRO,
     SPC_AST_MACRO,
+    SPC_LT_MACRO,
+    SPC_GT_MACRO,
     SPC_MINS_EQ_MACRO,
     SPC_PLS_EQ_MACRO,
     SPC_EQ_EQ_MACRO,
     SPC_NOT_EQ_MACRO,
+    SPC_LTE_MACRO,
+    SPC_GTE_MACRO,
     SPC_COMMA_MACRO,
     WORD_I_MACRO,
 };
@@ -235,10 +239,14 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_PLS_MACRO, SEND_STRING(" + "));
         DO_IF_PRESSED(SPC_EQ_MACRO, SEND_STRING(" = "));
         DO_IF_PRESSED(SPC_AST_MACRO, SEND_STRING(" * "));
+        DO_IF_PRESSED(SPC_LT_MACRO, SEND_STRING(" < "));
+        DO_IF_PRESSED(SPC_GT_MACRO, SEND_STRING(" > "));
         DO_IF_PRESSED(SPC_MINS_EQ_MACRO, SEND_STRING(" -= "));
         DO_IF_PRESSED(SPC_PLS_EQ_MACRO, SEND_STRING(" += "));
         DO_IF_PRESSED(SPC_EQ_EQ_MACRO, SEND_STRING(" == "));
         DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
+        DO_IF_PRESSED(SPC_LTE_MACRO, SEND_STRING(" <= "));
+        DO_IF_PRESSED(SPC_GTE_MACRO, SEND_STRING(" >= "));
         DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
     }
@@ -379,34 +387,38 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
-    IM_R_COMBO,  // Index + Middle Right Hand
-    IT1_L_COMBO, // Index + Thumb1 Left Hand
-    IT1_R_COMBO, // Index + Thumb1 Right Hand
-    IT2_L_COMBO, // Index + Thumb2 Left Hand
-    MT1_L_COMBO, // Middle + Thumb1 Left Hand
-    MT2_L_COMBO, // Middle + Thumb2 Left Hand
-    RT1_L_COMBO, // Ring + Thumb1 Left Hand
-    RT2_L_COMBO, // Ring + Thumb2 Left Hand
-    PT1_L_COMBO, // Pinky + Thumb1 Left Hand
-    PT2_L_COMBO, // Pinky + Thumb2 Left Hand
-    MR_R_COMBO,  // Middle + Ring Right Hand
-    MR_L_COMBO,  // Middle + Ring Right Hand
-    RP_R_COMBO,  // Ring + Pinky Right Hand
-    RP_L_COMBO,  // Ring + Pinky Left Hand
-    ID_R_COMBO,  // Index Down Right Hand
-    FU_R_COMBO,  // Far Up Right Hand
-    FD_R_COMBO,  // Far Down Right Hand
-    IU_R_COMBO,  // Index Up Right Hand
-    MU_R_COMBO,  // Middle Up Right Hand
-    RU_R_COMBO,  // Ring Up Right Hand
-    PU_R_COMBO,  // Pinky Up Right Hand
-    ID_L_COMBO,  // Index Down Left Hand
-    FU_L_COMBO,  // Far Up Left Hand
-    FD_L_COMBO,  // Far Down Left Hand
-    IU_L_COMBO,  // Index Up Left Hand
-    MU_L_COMBO,  // Middle Up Left Hand
-    RU_L_COMBO,  // Ring Up Left Hand
-    PU_L_COMBO,  // Pinky Up Left Hand
+    IM_R_COMBO,   // Index + Middle Right Hand
+    IT1_L_COMBO,  // Index + Thumb1 Left Hand
+    IT1_R_COMBO,  // Index + Thumb1 Right Hand
+    IT2_L_COMBO,  // Index + Thumb2 Left Hand
+    MT1_L_COMBO,  // Middle + Thumb1 Left Hand
+    MT2_L_COMBO,  // Middle + Thumb2 Left Hand
+    RT1_L_COMBO,  // Ring + Thumb1 Left Hand
+    RT2_L_COMBO,  // Ring + Thumb2 Left Hand
+    PT1_L_COMBO,  // Pinky + Thumb1 Left Hand
+    PT2_L_COMBO,  // Pinky + Thumb2 Left Hand
+    IDT1_L_COMBO, // IndexDown + Thumb1 Left Hand
+    IDT2_L_COMBO, // IndexDown + Thumb2 Left Hand
+    MDT1_L_COMBO, // MiddleDown + Thumb1 Left Hand
+    MDT2_L_COMBO, // MiddleDown + Thumb2 Left Hand
+    MR_R_COMBO,   // Middle + Ring Right Hand
+    MR_L_COMBO,   // Middle + Ring Right Hand
+    RP_R_COMBO,   // Ring + Pinky Right Hand
+    RP_L_COMBO,   // Ring + Pinky Left Hand
+    ID_R_COMBO,   // Index Down Right Hand
+    FU_R_COMBO,   // Far Up Right Hand
+    FD_R_COMBO,   // Far Down Right Hand
+    IU_R_COMBO,   // Index Up Right Hand
+    MU_R_COMBO,   // Middle Up Right Hand
+    RU_R_COMBO,   // Ring Up Right Hand
+    PU_R_COMBO,   // Pinky Up Right Hand
+    ID_L_COMBO,   // Index Down Left Hand
+    FU_L_COMBO,   // Far Up Left Hand
+    FD_L_COMBO,   // Far Down Left Hand
+    IU_L_COMBO,   // Index Up Left Hand
+    MU_L_COMBO,   // Middle Up Left Hand
+    RU_L_COMBO,   // Ring Up Left Hand
+    PU_L_COMBO,   // Pinky Up Left Hand
     WORD_I_COMBO,
     SPC_COMMA_COMBO,
     THUMBL_COMBO,
@@ -436,6 +448,10 @@ const uint16_t PROGMEM rt1_l_combo[] = {THUMBL1, R(KC_S), COMBO_END};
 const uint16_t PROGMEM rt2_l_combo[] = {THUMBL2, R(KC_S), COMBO_END};
 const uint16_t PROGMEM pt1_l_combo[] = {THUMBL1, P(KC_A), COMBO_END};
 const uint16_t PROGMEM pt2_l_combo[] = {THUMBL2, P(KC_A), COMBO_END};
+const uint16_t PROGMEM idt1_l_combo[] = {THUMBL1, KC_V, COMBO_END};
+const uint16_t PROGMEM idt2_l_combo[] = {THUMBL2, KC_V, COMBO_END};
+const uint16_t PROGMEM mdt1_l_combo[] = {THUMBL1, KC_C, COMBO_END};
+const uint16_t PROGMEM mdt2_l_combo[] = {THUMBL2, KC_C, COMBO_END};
 const uint16_t PROGMEM word_i_combo[] = {THUMBL1, KC_I, COMBO_END};
 const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM mr_r_combo[] = {M(KC_K), R(KC_L), COMBO_END};
@@ -486,6 +502,10 @@ combo_t key_combos[] = {
     [RT2_L_COMBO] = COMBO(rt2_l_combo, SPC_EQ_EQ_MACRO),
     [PT1_L_COMBO] = COMBO(pt1_l_combo, SPC_AST_MACRO),
     [PT2_L_COMBO] = COMBO(pt2_l_combo, SPC_NOT_EQ_MACRO),
+    [IDT1_L_COMBO] = COMBO(idt1_l_combo, SPC_GT_MACRO),
+    [MDT1_L_COMBO] = COMBO(mdt1_l_combo, SPC_LT_MACRO),
+    [IDT2_L_COMBO] = COMBO(idt2_l_combo, SPC_GTE_MACRO),
+    [MDT2_L_COMBO] = COMBO(mdt2_l_combo, SPC_LTE_MACRO),
     [WORD_I_COMBO] = COMBO(word_i_combo, WORD_I_MACRO),
     [SPC_COMMA_COMBO] = COMBO(spc_comma_combo, SPC_COMMA_MACRO),
     [MR_R_COMBO] = COMBO(mr_r_combo, KC_RIGHT),

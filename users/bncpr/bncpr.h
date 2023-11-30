@@ -5,7 +5,7 @@
 void oled_render_qwerty(void);
 void oled_render_colemak_dh(void);
 
-#define MACRO_TIMER 5
+#define MACRO_TIMER 10
 
 enum custom_keycodes_user {
     SECRET_0_MACRO = SAFE_RANGE,

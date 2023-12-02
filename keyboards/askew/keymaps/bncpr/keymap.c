@@ -17,6 +17,8 @@ enum layers {
     _NAV,
     _MOUSE,
     _SYM,
+    _CODE1,
+    _CODE2,
     _NUM,
     _FUN,
     _ADJUST,
@@ -45,6 +47,7 @@ enum custom_keycodes {
     SPC_NOT_EQ_MACRO,
     SPC_LTE_MACRO,
     SPC_GTE_MACRO,
+    WALRUS_MACRO,
     SPC_COMMA_MACRO,
     WORD_I_MACRO,
 };
@@ -66,6 +69,8 @@ enum custom_keycodes {
 #define M(key) CTL_T(key)
 #define R(key) ALT_T(key)
 #define P(key) GUI_T(key)
+#define CODE1_T(key) LT(_CODE1, key)
+#define CODE2_T(key) LT(_CODE2, key)
 #define REDO C(KC_Y)
 #define UNDO C(KC_Z)
 #define CUT C(KC_X)
@@ -81,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        OSM_SFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  OSM_SFT,
+        OSM_SFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     CODE1_T(KC_M),     CODE2_T(KC_COMM),  KC_DOT,   KC_SLSH,  OSM_SFT,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -172,6 +177,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX,  KC_LPRN,  KC_RPRN,  KC_UNDS,     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
+    [_CODE1] = LAYOUT_split_3x6_4(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  SPC_AST_MACRO,  SPC_EQ_MACRO,  SPC_PLS_MACRO,  SPC_MINS_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GT_MACRO,  SPC_LT_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
+    [_CODE2] = LAYOUT_split_3x6_4(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  WALRUS_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  SPC_NOT_EQ_MACRO,  SPC_EQ_EQ_MACRO,  SPC_PLS_EQ_MACRO,  SPC_MINS_EQ_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GTE_MACRO,  SPC_LTE_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
+                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    //                                -------   -------   -------   -------      -------   -------   -------   -------
+    ),
     [_MEDIA] = LAYOUT_split_3x6_4(
         XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            REDO,     PASTE,    COPY,     CUT,      UNDO,     XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
@@ -247,6 +272,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
         DO_IF_PRESSED(SPC_LTE_MACRO, SEND_STRING(" <= "));
         DO_IF_PRESSED(SPC_GTE_MACRO, SEND_STRING(" >= "));
+        DO_IF_PRESSED(WALRUS_MACRO, SEND_STRING(" := "));
         DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
     }

@@ -48,6 +48,8 @@ enum custom_keycodes {
     SPC_LTE_MACRO,
     SPC_GTE_MACRO,
     WALRUS_MACRO,
+    N_BSPC3,
+    N_BSPC4,
     SPC_COMMA_MACRO,
     WORD_I_MACRO,
 };
@@ -184,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GT_MACRO,  SPC_LT_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  XXXXXXX,  N_BSPC3,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_CODE2] = LAYOUT_split_3x6_4(
@@ -194,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GTE_MACRO,  SPC_LTE_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  XXXXXXX,  N_BSPC4,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_MEDIA] = LAYOUT_split_3x6_4(
@@ -275,6 +277,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(WALRUS_MACRO, SEND_STRING(" := "));
         DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
+        case N_BSPC3:
+        case N_BSPC4:
+            if (record->event.pressed) {
+                tap_code(KC_BSPC);
+                tap_code(KC_BSPC);
+                tap_code(KC_BSPC);
+                for (int i = 0; i < keycode - N_BSPC3; ++i) {
+                    tap_code(KC_BSPC);
+                }
+            }
+            return false;
     }
     return true;
 }

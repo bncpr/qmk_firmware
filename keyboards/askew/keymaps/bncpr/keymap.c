@@ -458,6 +458,8 @@ enum combos {
     MU_L_COMBO,   // Middle Up Left Hand
     RU_L_COMBO,   // Ring Up Left Hand
     PU_L_COMBO,   // Pinky Up Left Hand
+    SEMICOLN_COMBO,
+    COLN_COMBO,
     WORD_I_COMBO,
     SPC_COMMA_COMBO,
     THUMBL_COMBO,
@@ -522,6 +524,8 @@ const uint16_t PROGMEM quote_combo[] = {KC_V, KC_M, COMBO_END};
 const uint16_t PROGMEM squote_combo[] = {KC_C, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
 const uint16_t PROGMEM ca_paste_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM semicoln_combo[] = {P(KC_A), I(KC_J), COMBO_END};
+const uint16_t PROGMEM coln_combo[] = {P(KC_A), M(KC_K), COMBO_END};
 const uint16_t PROGMEM secret_0_combo[] = {I(KC_J), KC_I, R(KC_L), COMBO_END};
 const uint16_t PROGMEM secret_1_combo[] = {I(KC_J), KC_I, R(KC_L), KC_X, COMBO_END};
 const uint16_t PROGMEM secret_2_combo[] = {I(KC_J), KC_I, R(KC_L), KC_C, COMBO_END};
@@ -573,6 +577,8 @@ combo_t key_combos[] = {
     [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT_MACRO),
     [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
     [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE_MACRO),
+    [SEMICOLN_COMBO] = COMBO(semicoln_combo, KC_SCLN),
+    [COLN_COMBO] = COMBO(coln_combo, KC_COLN),
     [SECRET_0_COMBO] = COMBO(secret_0_combo, SECRET_0_MACRO),
     [SECRET_1_COMBO] = COMBO(secret_1_combo, SECRET_1_MACRO),
     [SECRET_2_COMBO] = COMBO(secret_2_combo, SECRET_2_MACRO),

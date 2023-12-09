@@ -433,7 +433,9 @@ enum combos {
     RP_R_COMBO,   // Ring + Pinky Right Hand
     RP_L_COMBO,   // Ring + Pinky Left Hand
     SEMICOLN_COMBO,
+    SEMICOLN_COMBO2,
     COLN_COMBO,
+    COLN_COMBO2,
     WORD_I_COMBO,
     SPC_COMMA_COMBO,
     SHIFT_PASTE_COMBO,
@@ -468,7 +470,9 @@ const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
 const uint16_t PROGMEM shift_paste_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM ca_paste_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM semicoln_combo[] = {P(KC_A), I(KC_J), COMBO_END};
-const uint16_t PROGMEM coln_combo[] = {P(KC_A), M(KC_K), COMBO_END};
+const uint16_t PROGMEM semicoln_combo2[] = {P(KC_A), THUMBR1, COMBO_END};
+const uint16_t PROGMEM coln_combo[] = {P(KC_A), THUMBR2, COMBO_END};
+const uint16_t PROGMEM coln_combo2[] = {P(KC_A), M(KC_K), COMBO_END};
 const uint16_t PROGMEM c_bspc_combo[] = {M(KC_D), THUMBR1, COMBO_END};
 const uint16_t PROGMEM secret_0_combo[] = {I(KC_J), KC_I, R(KC_L), COMBO_END};
 const uint16_t PROGMEM secret_1_combo[] = {I(KC_J), KC_I, R(KC_L), KC_X, COMBO_END};
@@ -493,7 +497,9 @@ combo_t key_combos[] = {
     [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
     [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE_MACRO),
     [SEMICOLN_COMBO] = COMBO(semicoln_combo, KC_SCLN),
+    [SEMICOLN_COMBO2] = COMBO(semicoln_combo2, KC_SCLN),
     [COLN_COMBO] = COMBO(coln_combo, KC_COLN),
+    [COLN_COMBO2] = COMBO(coln_combo2, KC_COLN),
     [C_BSPC_COMBO] = COMBO(c_bspc_combo, C(KC_BSPC)),
     [SECRET_0_COMBO] = COMBO(secret_0_combo, SECRET_0_MACRO),
     [SECRET_1_COMBO] = COMBO(secret_1_combo, SECRET_1_MACRO),

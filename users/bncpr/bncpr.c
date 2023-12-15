@@ -12,6 +12,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
 }
 
+#ifdef OLED_ENABLE
 void oled_render_qwerty(void) {
     // clang-format off
     static const char PROGMEM querty[] = {
@@ -35,3 +36,4 @@ void oled_render_colemak_dh(void) {
 	oled_write_raw_P(colemak_dh, sizeof(colemak_dh));
     // clang-format on
 }
+#endif

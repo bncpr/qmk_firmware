@@ -407,12 +407,12 @@ bool oled_task_user(void) {
 #ifdef COMBO_ENABLE
 
 enum combos {
-    IM_R_COMBO,   // Index + Middle Right Hand
-    IT1_R_COMBO,  // Index + Thumb1 Right Hand
-    MR_R_COMBO,   // Middle + Ring Right Hand
-    MR_L_COMBO,   // Middle + Ring Right Hand
-    RP_R_COMBO,   // Ring + Pinky Right Hand
-    RP_L_COMBO,   // Ring + Pinky Left Hand
+    IM_R_COMBO,  // Index + Middle Right Hand
+    IT1_R_COMBO, // Index + Thumb1 Right Hand
+    MR_R_COMBO,  // Middle + Ring Right Hand
+    MR_L_COMBO,  // Middle + Ring Right Hand
+    RP_R_COMBO,  // Ring + Pinky Right Hand
+    RP_L_COMBO,  // Ring + Pinky Left Hand
     SEMICOLN_COMBO,
     SEMICOLN_COMBO2,
     COLN_COMBO,
@@ -501,6 +501,5 @@ uint8_t combo_ref_from_layer(uint8_t layer) {
     }
     return layer; // important if default is not in case.
 }
-
 
 #endif

@@ -1,4 +1,3 @@
-#include "quantum.h"
 #include QMK_KEYBOARD_H
 #include "bncpr.h"
 #ifdef OLED_SUGAR
@@ -437,7 +436,7 @@ enum combos {
 const uint16_t PROGMEM im_r_combo[] = {I(KC_J), M(KC_K), COMBO_END};
 const uint16_t PROGMEM it1_r_combo[] = {THUMBR1, I(KC_J), COMBO_END};
 const uint16_t PROGMEM word_i_combo[] = {THUMBL1, KC_I, COMBO_END};
-const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, CODE2_T(KC_COMMA), COMBO_END};
 const uint16_t PROGMEM mr_r_combo[] = {M(KC_K), R(KC_L), COMBO_END};
 const uint16_t PROGMEM mr_l_combo[] = {M(KC_D), R(KC_S), COMBO_END};
 const uint16_t PROGMEM rp_r_combo[] = {R(KC_L), P(KC_QUOT), COMBO_END};

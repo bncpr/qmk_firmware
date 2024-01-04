@@ -4,7 +4,13 @@
 #include "oled_sugar/oled_sugar.h"
 #include "transactions.h"
 #endif
-
+void keyboard_post_init_user(void) {
+    // Customise these values to desired behaviour
+    debug_enable = true;
+    debug_matrix = true;
+    // debug_keyboard=true;
+    // debug_mouse=true;
+}
 enum layers {
     _QWERTY,
     _COLEMAK_DH,

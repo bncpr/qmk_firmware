@@ -2,7 +2,7 @@
     "manufacturer": "Ben Cooper",
     "keyboard_name": "Askew",
     "maintainer": "bncpr",
-    "bootloader": "caterina",
+    "bootloader": "rp2040",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -11,7 +11,13 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "atmega32u4",
+    "processor": "RP2040",
+    "split": {
+        "enabled": true,
+        "transport": {
+            "protocol": "serial"
+        }
+    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",

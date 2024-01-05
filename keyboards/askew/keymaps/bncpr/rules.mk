@@ -15,3 +15,5 @@ STENO_ENABLE = no
 # STENO_PROTOCOL = txbolt
 
 OLED_ENABLE = no
+
+CONSOLE_ENABLE = yes

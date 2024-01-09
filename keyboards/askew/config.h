@@ -19,11 +19,13 @@
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
-/* #define MASTER_LEFT */
-#define EE_HANDS
+#define MASTER_LEFT
+/* #define EE_HANDS */
 #define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 2000
+/* #define SPLIT_USB_TIMEOUT 2000 */
 #define SOFT_SERIAL_PIN GP1
+
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 
 #define DIODE_DIRECTION ROW2COL
 
@@ -40,4 +42,3 @@
 #define OLED_FONT_H "keyboards/askew/glcdfont.c"
 
 #define SERIAL_DEBUG
-#define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral

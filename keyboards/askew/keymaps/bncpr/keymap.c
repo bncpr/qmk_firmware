@@ -76,8 +76,8 @@ enum custom_keycodes {
 #define M(key) CTL_T(key)
 #define R(key) ALT_T(key)
 #define P(key) GUI_T(key)
-#define CODE1_T(key) LT(_CODE1, key)
-#define CODE2_T(key) LT(_CODE2, key)
+#define C1_T(key) LT(_CODE1, key)
+#define C2_T(key) LT(_CODE2, key)
 #define REDO C(KC_Y)
 #define UNDO C(KC_Z)
 #define CUT C(KC_X)
@@ -87,35 +87,44 @@ enum custom_keycodes {
 #define CH_LANG G(KC_SPACE)
 
 // clang-format off
+#define LAYOUT_default( \
+       L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, \
+       L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, \
+       L21, L22, L23, L24, L25,           R20, R21, R22, R23, R24  \
+  ) \
+LAYOUT_split_3x6_4( \
+        ALT_TAB,  L01,      L02,      L03,      L04,      L05,                             R00,      R01,        R02,        R03,      R04,      CH_LANG, \
+        KC_LBRC,  P(L11),   R(L12),   M(L13),   I(L14),   F(L15),                          F(R10),   I(R11),     M(R12),     R(R13),   P(R14),   KC_RBRC, \
+        OSM_SFT,  L21,      L22,      L23,      L24,      L25,                             R20,      C1_T(R21),  C2_T(R22),  R23,      R24,      OSM_SFT, \
+                                      QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,    QK_LEAD \
+    ) \
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_split_3x6_4(
-        ALT_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     CH_LANG,
+    [_QWERTY] = LAYOUT_default(
+                  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_LBRC,  P(KC_A),  R(KC_S),  M(KC_D),  I(KC_F),  F(KC_G),                         F(KC_H),  I(KC_J),  M(KC_K),  R(KC_L),  P(KC_QUOT),KC_RBRC,
+                  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                            KC_H,     KC_J,     KC_K,     KC_L,     KC_QUOT,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        OSM_SFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     CODE1_T(KC_M),     CODE2_T(KC_COMM),  KC_DOT,   KC_SLSH,  OSM_SFT,
+                  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
-    [_COLEMAK_DH] = LAYOUT_split_3x6_4(
-        ALT_TAB,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,      KC_L,    KC_U,     KC_Y,     KC_QUOT,  CH_LANG,
+    [_COLEMAK_DH] = LAYOUT_default(
+                  KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,                            KC_J,     KC_L,     KC_U,     KC_Y,     KC_QUOT,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        KC_LBRC,  P(KC_A),  R(KC_R),  M(KC_S),  I(KC_T),  F(KC_G),                         F(KC_M),  I(KC_N),  M(KC_E),  R(KC_I),  P(KC_O),  KC_RBRC,
+                  KC_A,     KC_R,     KC_S,     KC_T,     KC_G,                            KC_M,     KC_N,     KC_E,     KC_I,     KC_O,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        OSM_SFT,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  OSM_SFT,
+                  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,                            KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      QK_LEAD,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  QK_LEAD
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
-    [_DVORAK] = LAYOUT_split_3x6_4(
-        ALT_TAB,   KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,                            KC_F,      KC_G,    KC_C,     KC_R,     KC_L,     CH_LANG,
+    [_DVORAK] = LAYOUT_default(
+                  KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,                            KC_F,     KC_G,     KC_C,     KC_R,     KC_L,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  P(KC_A),  R(KC_O),  M(KC_E),  I(KC_U),  F(KC_I),                         F(KC_D),  I(KC_H),  M(KC_T),  R(KC_N),  P(KC_S),  XXXXXXX,
+                  KC_A,     KC_O,     KC_E,     KC_U,     KC_I,                            KC_D,     KC_H,     KC_T,     KC_N,     KC_S,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  KC_SLSH,    KC_Q,     KC_J,     KC_K,     KC_X,                          KC_B,     KC_M,     KC_W,     KC_V,     KC_Z,     XXXXXXX,
+                  KC_SLSH,  KC_Q,     KC_J,     KC_K,     KC_X,                            KC_B,     KC_M,     KC_W,     KC_V,     KC_Z
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  THUMBL3,  THUMBL1,  THUMBL2,     THUMBR2,  THUMBR1,  THUMBR3,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_GAME] = LAYOUT_split_3x6_4(
@@ -444,7 +453,7 @@ enum combos {
 const uint16_t PROGMEM im_r_combo[] = {I(KC_J), M(KC_K), COMBO_END};
 const uint16_t PROGMEM it1_r_combo[] = {THUMBR1, I(KC_J), COMBO_END};
 const uint16_t PROGMEM word_i_combo[] = {THUMBL1, KC_I, COMBO_END};
-const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, CODE2_T(KC_COMMA), COMBO_END};
+const uint16_t PROGMEM spc_comma_combo[] = {THUMBL1, C2_T(KC_COMMA), COMBO_END};
 const uint16_t PROGMEM mr_r_combo[] = {M(KC_K), R(KC_L), COMBO_END};
 const uint16_t PROGMEM mr_l_combo[] = {M(KC_D), R(KC_S), COMBO_END};
 const uint16_t PROGMEM rp_r_combo[] = {R(KC_L), P(KC_QUOT), COMBO_END};
@@ -452,8 +461,8 @@ const uint16_t PROGMEM rp_l_combo[] = {R(KC_S), P(KC_A), COMBO_END};
 const uint16_t PROGMEM paren_combo[] = {I(KC_F), I(KC_J), COMBO_END};
 const uint16_t PROGMEM sqbrc_combo[] = {M(KC_D), M(KC_K), COMBO_END};
 const uint16_t PROGMEM cbrc_combo[] = {R(KC_S), R(KC_L), COMBO_END};
-const uint16_t PROGMEM quote_combo[] = {KC_V, CODE1_T(KC_M), COMBO_END};
-const uint16_t PROGMEM squote_combo[] = {KC_C, CODE2_T(KC_COMMA), COMBO_END};
+const uint16_t PROGMEM quote_combo[] = {KC_V, C1_T(KC_M), COMBO_END};
+const uint16_t PROGMEM squote_combo[] = {KC_C, C2_T(KC_COMMA), COMBO_END};
 const uint16_t PROGMEM triag_combo[] = {KC_X, KC_DOT, COMBO_END};
 const uint16_t PROGMEM shift_paste_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM ca_paste_combo[] = {KC_X, KC_C, KC_V, COMBO_END};

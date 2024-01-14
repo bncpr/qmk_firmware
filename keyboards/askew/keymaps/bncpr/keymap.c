@@ -33,30 +33,30 @@ enum custom_keycodes {
     QWERTY = NEW_SAFE_RANGE,
     COLEMAK,
     DVORAK,
-    PAREN_MACRO,
-    SQBRC_MACRO,
-    CBRC_MACRO,
-    QUOT_MACRO,
-    SQUOT_MACRO,
-    TRIAG_MACRO,
-    CA_PASTE_MACRO,
-    SPC_MINS_MACRO,
-    SPC_PLS_MACRO,
-    SPC_EQ_MACRO,
-    SPC_AST_MACRO,
-    SPC_LT_MACRO,
-    SPC_GT_MACRO,
-    SPC_MINS_EQ_MACRO,
-    SPC_PLS_EQ_MACRO,
-    SPC_EQ_EQ_MACRO,
-    SPC_NOT_EQ_MACRO,
-    SPC_LTE_MACRO,
-    SPC_GTE_MACRO,
-    WALRUS_MACRO,
+    PAREN,
+    SQBRC,
+    CBRC,
+    QUOT,
+    SQUOT,
+    TRIAG,
+    CA_PASTE,
+    SPC_MIN,
+    SPC_PLS,
+    SPC_EQ,
+    SPC_AST,
+    SPC_LT,
+    SPC_GT,
+    SPC_M_E,
+    SPC_P_E,
+    SPC_E_E,
+    SPC_N_E,
+    SPC_LTE,
+    SPC_GTE,
+    WALRUS,
     N_BSPC3,
     N_BSPC4,
-    SPC_COMMA_MACRO,
-    WORD_I_MACRO,
+    SPC_COMMA,
+    WORD_I,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -180,19 +180,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_CODE1] = LAYOUT_split_3x6_4(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  SPC_AST_MACRO,  SPC_EQ_MACRO,  SPC_PLS_MACRO,  SPC_MINS_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  SPC_AST,  SPC_EQ,   SPC_PLS,  SPC_MIN,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GT_MACRO,  SPC_LT_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GT,   SPC_LT,   XXXXXXX,                         XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  N_BSPC3,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_CODE2] = LAYOUT_split_3x6_4(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  WALRUS_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  WALRUS,   XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  SPC_NOT_EQ_MACRO,  SPC_EQ_EQ_MACRO,  SPC_PLS_EQ_MACRO,  SPC_MINS_EQ_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  SPC_N_E,  SPC_E_E,  SPC_P_E,  SPC_M_E,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GTE_MACRO,  SPC_LTE_MACRO,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  SPC_GTE,  SPC_LTE,  XXXXXXX,                         XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
                                       XXXXXXX,  XXXXXXX,  N_BSPC4,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
@@ -253,28 +253,28 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
-        DO_IF_PRESSED(PAREN_MACRO, SEND_STRING("()" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(SQBRC_MACRO, SEND_STRING("[]" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(CBRC_MACRO, SEND_STRING("{}" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(QUOT_MACRO, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(SQUOT_MACRO, SEND_STRING("''" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(TRIAG_MACRO, SEND_STRING("<>" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(CA_PASTE_MACRO, tap_code16(C(KC_A)); tap_code16(PASTE));
-        DO_IF_PRESSED(SPC_MINS_MACRO, SEND_STRING(" - "));
-        DO_IF_PRESSED(SPC_PLS_MACRO, SEND_STRING(" + "));
-        DO_IF_PRESSED(SPC_EQ_MACRO, SEND_STRING(" = "));
-        DO_IF_PRESSED(SPC_AST_MACRO, SEND_STRING(" * "));
-        DO_IF_PRESSED(SPC_LT_MACRO, SEND_STRING(" < "));
-        DO_IF_PRESSED(SPC_GT_MACRO, SEND_STRING(" > "));
-        DO_IF_PRESSED(SPC_MINS_EQ_MACRO, SEND_STRING(" -= "));
-        DO_IF_PRESSED(SPC_PLS_EQ_MACRO, SEND_STRING(" += "));
-        DO_IF_PRESSED(SPC_EQ_EQ_MACRO, SEND_STRING(" == "));
-        DO_IF_PRESSED(SPC_NOT_EQ_MACRO, SEND_STRING(" != "));
-        DO_IF_PRESSED(SPC_LTE_MACRO, SEND_STRING(" <= "));
-        DO_IF_PRESSED(SPC_GTE_MACRO, SEND_STRING(" >= "));
-        DO_IF_PRESSED(WALRUS_MACRO, SEND_STRING(" := "));
-        DO_IF_PRESSED(SPC_COMMA_MACRO, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(WORD_I_MACRO, SEND_STRING("I "));
+        DO_IF_PRESSED(PAREN, SEND_STRING("()" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(SQBRC, SEND_STRING("[]" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(CBRC, SEND_STRING("{}" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(QUOT, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(SQUOT, SEND_STRING("''" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(TRIAG, SEND_STRING("<>" SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(CA_PASTE, tap_code16(C(KC_A)); tap_code16(PASTE));
+        DO_IF_PRESSED(SPC_MIN, SEND_STRING(" - "));
+        DO_IF_PRESSED(SPC_PLS, SEND_STRING(" + "));
+        DO_IF_PRESSED(SPC_EQ, SEND_STRING(" = "));
+        DO_IF_PRESSED(SPC_AST, SEND_STRING(" * "));
+        DO_IF_PRESSED(SPC_LT, SEND_STRING(" < "));
+        DO_IF_PRESSED(SPC_GT, SEND_STRING(" > "));
+        DO_IF_PRESSED(SPC_M_E, SEND_STRING(" -= "));
+        DO_IF_PRESSED(SPC_P_E, SEND_STRING(" += "));
+        DO_IF_PRESSED(SPC_E_E, SEND_STRING(" == "));
+        DO_IF_PRESSED(SPC_N_E, SEND_STRING(" != "));
+        DO_IF_PRESSED(SPC_LTE, SEND_STRING(" <= "));
+        DO_IF_PRESSED(SPC_GTE, SEND_STRING(" >= "));
+        DO_IF_PRESSED(WALRUS, SEND_STRING(" := "));
+        DO_IF_PRESSED(SPC_COMMA, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
+        DO_IF_PRESSED(WORD_I, SEND_STRING("I "));
         case N_BSPC3:
         case N_BSPC4:
             if (record->event.pressed) {
@@ -479,20 +479,20 @@ const uint16_t PROGMEM secret_3_combo[] = {I(KC_J), KC_I, R(KC_L), KC_V, COMBO_E
 combo_t key_combos[] = {
     [IM_R_COMBO] = COMBO(im_r_combo, KC_ESC),
     [IT1_R_COMBO] = COMBO(it1_r_combo, OSM_SFT),
-    [WORD_I_COMBO] = COMBO(word_i_combo, WORD_I_MACRO),
-    [SPC_COMMA_COMBO] = COMBO(spc_comma_combo, SPC_COMMA_MACRO),
+    [WORD_I_COMBO] = COMBO(word_i_combo, WORD_I),
+    [SPC_COMMA_COMBO] = COMBO(spc_comma_combo, SPC_COMMA),
     [MR_R_COMBO] = COMBO(mr_r_combo, KC_RIGHT),
     [MR_L_COMBO] = COMBO(mr_l_combo, KC_LEFT),
     [RP_R_COMBO] = COMBO(rp_r_combo, KC_END),
     [RP_L_COMBO] = COMBO(rp_l_combo, KC_HOME),
     [SHIFT_PASTE_COMBO] = COMBO(shift_paste_combo, S(C(KC_V))),
-    [PAREN_COMBO] = COMBO(paren_combo, PAREN_MACRO),
-    [SQBRC_COMBO] = COMBO(sqbrc_combo, SQBRC_MACRO),
-    [CBRC_COMBO] = COMBO(cbrc_combo, CBRC_MACRO),
-    [QUOTE_COMBO] = COMBO(quote_combo, QUOT_MACRO),
-    [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT_MACRO),
-    [TRIAG_COMBO] = COMBO(triag_combo, TRIAG_MACRO),
-    [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE_MACRO),
+    [PAREN_COMBO] = COMBO(paren_combo, PAREN),
+    [SQBRC_COMBO] = COMBO(sqbrc_combo, SQBRC),
+    [CBRC_COMBO] = COMBO(cbrc_combo, CBRC),
+    [QUOTE_COMBO] = COMBO(quote_combo, QUOT),
+    [SQUOTE_COMBO] = COMBO(squote_combo, SQUOT),
+    [TRIAG_COMBO] = COMBO(triag_combo, TRIAG),
+    [CA_PASTE_COMBO] = COMBO(ca_paste_combo, CA_PASTE),
     [SEMICOLN_COMBO] = COMBO(semicoln_combo, KC_SCLN),
     [SEMICOLN_COMBO2] = COMBO(semicoln_combo2, KC_SCLN),
     [COLN_COMBO] = COMBO(coln_combo, KC_COLN),

@@ -249,6 +249,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
     }
 #endif
+
+    const uint8_t mods = get_mods();
+    const uint8_t one_shot_mods = get_oneshot_mods();
+
     switch (keycode) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
@@ -286,6 +290,30 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case KC_PGDN:
+            if (record->event.pressed) {
+                clear_oneshot_mods();
+                unregister_mods(mods);
+                if ((mods | one_shot_mods) & MOD_MASK_SHIFT) {
+                    tap_code16(C(KC_D));
+                    register_mods(mods);
+                    return false;
+                }
+                register_mods(mods);
+            }
+            return true;
+        case KC_PGUP:
+            if (record->event.pressed) {
+                clear_oneshot_mods();
+                unregister_mods(mods);
+                if ((mods | one_shot_mods) & MOD_MASK_SHIFT) {
+                    tap_code16(C(KC_U));
+                    register_mods(mods);
+                    return false;
+                }
+                register_mods(mods);
+            }
+            return true;
     }
     return true;
 }

@@ -11,3 +11,5 @@ endif
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
 endif
+
+SRC += features/select_word.c

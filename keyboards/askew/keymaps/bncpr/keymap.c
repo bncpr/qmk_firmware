@@ -253,13 +253,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
+        DO_IF_PRESSED(CA_PASTE, tap_code16(C(KC_A)); tap_code16(PASTE));
         DO_IF_PRESSED(PAREN, SEND_STRING("()" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(SQBRC, SEND_STRING("[]" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(CBRC, SEND_STRING("{}" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(QUOT, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(SQUOT, SEND_STRING("''" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(TRIAG, SEND_STRING("<>" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(CA_PASTE, tap_code16(C(KC_A)); tap_code16(PASTE));
         DO_IF_PRESSED(SPC_MIN, SEND_STRING(" - "));
         DO_IF_PRESSED(SPC_PLS, SEND_STRING(" + "));
         DO_IF_PRESSED(SPC_EQ, SEND_STRING(" = "));

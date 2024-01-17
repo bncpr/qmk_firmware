@@ -258,6 +258,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
         DO_IF_PRESSED(CA_PASTE, tap_code16(C(KC_A)); tap_code16(PASTE));
+        DO_IF_PRESSED(N_BSPC3, tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC));
+        DO_IF_PRESSED(N_BSPC4, tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC));
         DO_IF_PRESSED(PAREN, SEND_STRING("()" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(SQBRC, SEND_STRING("[]" SS_TAP(X_LEFT)));
         DO_IF_PRESSED(CBRC, SEND_STRING("{}" SS_TAP(X_LEFT)));
@@ -279,17 +281,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         DO_IF_PRESSED(WALRUS, SEND_STRING(" := "));
         DO_IF_PRESSED(SPC_COMMA, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
         DO_IF_PRESSED(WORD_I, SEND_STRING("I "));
-        case N_BSPC3:
-        case N_BSPC4:
-            if (record->event.pressed) {
-                tap_code(KC_BSPC);
-                tap_code(KC_BSPC);
-                tap_code(KC_BSPC);
-                for (int i = 0; i < keycode - N_BSPC3; ++i) {
-                    tap_code(KC_BSPC);
-                }
-            }
-            return false;
         case KC_PGDN:
             if (record->event.pressed) {
                 clear_oneshot_mods();

@@ -520,7 +520,7 @@ combo_t key_combos[] = {
     [SECRET_0_COMBO] = COMBO(secret_0_combo, SECRET_0_MACRO),
     [SECRET_1_COMBO] = COMBO(secret_1_combo, SECRET_1_MACRO),
     [SECRET_2_COMBO] = COMBO(secret_2_combo, SECRET_2_MACRO),
-    [SECRET_3_COMBO] = COMBO(secret_3_combo, SECRET_3_MACRO),
+    [SECRET_3_COMBO] = COMBO(secret_3_combo, SECRET_N_MACRO),
 };
 
 #define COMBO_REF_DEFAULT _QWERTY

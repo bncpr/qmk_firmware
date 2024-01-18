@@ -17,7 +17,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_alternate_case(keycode, record, ALTCASE)) {
         return false;
     }
-    return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+    if (!process_record_secrets(keycode, record)) {
+        return false;
+    }
+    return process_record_keymap(keycode, record);
 }
 
 void matrix_scan_user(void) {

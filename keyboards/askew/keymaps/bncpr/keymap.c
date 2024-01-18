@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_BSLS,                         XXXXXXX,  KC_SPC,   KC_BSPC,  KC_ENT,   XXXXXXX,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
-                                      XXXXXXX,  KC_DOT,   LT(_ADJUST, KC_0),     KC_MINS,     XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  KC_DOT,   LT(_ADJUST, KC_0),     KC_MINS,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_MOUSE] = LAYOUT_split_3x6_4(

@@ -2,9 +2,8 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef OLDED_ENABLE
-void oled_render_qwerty(void);
-void oled_render_colemak_dh(void);
+#ifdef OLED_ENABLE
+#include "features/oled.h"
 #endif // OLDED_ENABLE
 
 #define SECRET_MACRO_DELAY 10

@@ -15,6 +15,7 @@ enum custom_keycodes_user {
     SECRET_2_MACRO,
     SECRET_3_MACRO,
     SELWORD,
+    ALTCASE,
     NEW_SAFE_RANGE,
 };
 

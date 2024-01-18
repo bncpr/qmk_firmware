@@ -13,3 +13,4 @@ ifeq ($(strip $(NO_SECRETS)), yes)
 endif
 
 SRC += features/select_word.c
+SRC += features/alternate_case.c

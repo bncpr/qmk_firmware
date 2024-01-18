@@ -20,6 +20,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
 }
 
+void matrix_scan_user(void) {
+    alternate_case_task();
+}
+
 #ifdef OLED_ENABLE
 void oled_render_qwerty(void) {
     // clang-format off

@@ -3,6 +3,17 @@
 static bool is_active = false;
 static bool is_upper = true;
 
+#ifdef ALTERNATE_CASE_TIMEOUT
+static uint16_t idle_timer = 0;
+void alternate_case_task(void) {
+    if (is_active && idle_timer && timer_expired(timer_read(), idle_timer)) {
+        is_active = false;
+        is_upper = true;
+        idle_timer = 0;
+    }
+}
+#endif // ALTERNATE_CASE_TIMEOUT
+
 bool process_alternate_case(uint16_t keycode, keyrecord_t *record, uint16_t altcase_keycode) {
     if (!record->event.pressed) {
         return true;
@@ -18,6 +29,10 @@ bool process_alternate_case(uint16_t keycode, keyrecord_t *record, uint16_t altc
     if (!is_active) {
         return true;
     }
+
+#ifdef ALTERNATE_CASE_TIMEOUT
+    idle_timer = record->event.time + ALTERNATE_CASE_TIMEOUT;
+#endif // ALTERNATE_CASE_TIMEOUT
 
     // Avoid interfering with hotkeys.
     if (((get_mods() | get_oneshot_mods()))) {

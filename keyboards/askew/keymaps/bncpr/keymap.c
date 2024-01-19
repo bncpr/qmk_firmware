@@ -33,30 +33,6 @@ enum custom_keycodes {
     QWERTY = NEW_SAFE_RANGE,
     COLEMAK,
     DVORAK,
-    PAREN,
-    SQBRC,
-    CBRC,
-    QUOT,
-    SQUOT,
-    TRIAG,
-    CA_PASTE,
-    SPC_MIN,
-    SPC_PLS,
-    SPC_EQ,
-    SPC_AST,
-    SPC_LT,
-    SPC_GT,
-    SPC_M_E,
-    SPC_P_E,
-    SPC_E_E,
-    SPC_N_E,
-    SPC_LTE,
-    SPC_GTE,
-    WALRUS,
-    N_BSPC3,
-    N_BSPC4,
-    SPC_COMMA,
-    WORD_I,
 };
 
 #define OSM_HYP OSM(MOD_HYPR)
@@ -78,13 +54,6 @@ enum custom_keycodes {
 #define P(key) GUI_T(key)
 #define C1_T(key) LT(_CODE1, key)
 #define C2_T(key) LT(_CODE2, key)
-#define REDO C(KC_Y)
-#define UNDO C(KC_Z)
-#define CUT C(KC_X)
-#define COPY C(KC_C)
-#define PASTE C(KC_V)
-#define ALT_TAB A(KC_TAB)
-#define CH_LANG G(KC_SPACE)
 
 // clang-format off
 #define LAYOUT_default( \
@@ -250,61 +219,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
-    const uint8_t mods = get_mods();
-    const uint8_t one_shot_mods = get_oneshot_mods();
-
     switch (keycode) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
         DO_IF_PRESSED(DVORAK, set_single_persistent_default_layer(_DVORAK));
-        DO_IF_PRESSED(CA_PASTE, tap_code16(C(KC_A)); tap_code16(PASTE));
-        DO_IF_PRESSED(N_BSPC3, tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC));
-        DO_IF_PRESSED(N_BSPC4, tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC); tap_code(KC_BSPC));
-        DO_IF_PRESSED(PAREN, SEND_STRING("()" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(SQBRC, SEND_STRING("[]" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(CBRC, SEND_STRING("{}" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(QUOT, SEND_STRING("\"\"" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(SQUOT, SEND_STRING("''" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(TRIAG, SEND_STRING("<>" SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(SPC_MIN, SEND_STRING(" - "));
-        DO_IF_PRESSED(SPC_PLS, SEND_STRING(" + "));
-        DO_IF_PRESSED(SPC_EQ, SEND_STRING(" = "));
-        DO_IF_PRESSED(SPC_AST, SEND_STRING(" * "));
-        DO_IF_PRESSED(SPC_LT, SEND_STRING(" < "));
-        DO_IF_PRESSED(SPC_GT, SEND_STRING(" > "));
-        DO_IF_PRESSED(SPC_M_E, SEND_STRING(" -= "));
-        DO_IF_PRESSED(SPC_P_E, SEND_STRING(" += "));
-        DO_IF_PRESSED(SPC_E_E, SEND_STRING(" == "));
-        DO_IF_PRESSED(SPC_N_E, SEND_STRING(" != "));
-        DO_IF_PRESSED(SPC_LTE, SEND_STRING(" <= "));
-        DO_IF_PRESSED(SPC_GTE, SEND_STRING(" >= "));
-        DO_IF_PRESSED(WALRUS, SEND_STRING(" := "));
-        DO_IF_PRESSED(SPC_COMMA, SEND_STRING(", " SS_TAP(X_LEFT) SS_TAP(X_LEFT)));
-        DO_IF_PRESSED(WORD_I, SEND_STRING("I "));
-        case KC_PGDN:
-            if (record->event.pressed) {
-                clear_oneshot_mods();
-                unregister_mods(mods);
-                if ((mods | one_shot_mods) & MOD_MASK_SHIFT) {
-                    tap_code16(C(KC_D));
-                    register_mods(mods);
-                    return false;
-                }
-                register_mods(mods);
-            }
-            return true;
-        case KC_PGUP:
-            if (record->event.pressed) {
-                clear_oneshot_mods();
-                unregister_mods(mods);
-                if ((mods | one_shot_mods) & MOD_MASK_SHIFT) {
-                    tap_code16(C(KC_U));
-                    register_mods(mods);
-                    return false;
-                }
-                register_mods(mods);
-            }
-            return true;
     }
     return true;
 }

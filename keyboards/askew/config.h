@@ -39,4 +39,3 @@
 #define DEBOUNCE 5
 
 #define OLED_FONT_H "keyboards/askew/glcdfont.c"
-#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_KEY_CNTR

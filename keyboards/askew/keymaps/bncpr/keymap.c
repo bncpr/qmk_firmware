@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "bncpr.h"
-#ifdef OLED_SUGAR
-#include "oled_sugar/oled_sugar.h"
-#include "transactions.h"
-#endif
 
 // void keyboard_post_init_user(void) {
 //     // Customise these values to desired behaviour
@@ -212,13 +208,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // extern uint16_t keyCntr;
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_SUGAR
-    if (record->event.pressed) {
-        keyCntr++;
-        transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
-    }
-#endif
-
     switch (keycode) {
         DO_IF_PRESSED(QWERTY, set_single_persistent_default_layer(_QWERTY));
         DO_IF_PRESSED(COLEMAK, set_single_persistent_default_layer(_COLEMAK_DH));
@@ -276,12 +265,6 @@ void leader_end_user(void) {
 
 #ifdef OLED_ENABLE
 
-#ifdef OLED_SUGAR
-void keyboard_post_init_user(void) {
-    transaction_register_rpc(USER_SYNC_KEY_CNTR, user_sync_a_update_keyCntr_on_other_board);
-}
-#endif
-
 static void oled_render_logo(void) {
     static const char PROGMEM logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -292,11 +275,6 @@ static void oled_render_logo(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-#ifdef OLED_SUGAR
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
-#endif
     if (!is_keyboard_left()) {
         return OLED_ROTATION_180;
     }
@@ -340,18 +318,10 @@ static void render_status(void) {
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-#ifdef OLED_SUGAR
-        oled_sugar();
-#else
         render_status();
-#endif
     } else {
-#ifdef OLED_SUGAR
-        render_status();
-#else
         oled_render_logo();
         // oled_scroll_left();  // Turns on scrolling
-#endif
     }
     return false;
 }

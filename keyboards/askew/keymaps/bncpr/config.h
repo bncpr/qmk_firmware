@@ -33,3 +33,4 @@
 
 #define FORCE_NKRO
 #define COMBO_SHOULD_TRIGGER
+#define COMBO_IGNORE_MOD_TAP

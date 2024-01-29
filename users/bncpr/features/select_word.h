@@ -44,7 +44,7 @@ extern "C" {
 
 /** Handler function for select word. */
 bool process_select_word(uint16_t keycode, keyrecord_t *record,
-                         uint16_t sel_keycode);
+                         uint16_t up, uint16_t right, uint16_t down, uint16_t left);
 
 /**
  * @fn select_word_task(void)

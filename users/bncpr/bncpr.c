@@ -11,7 +11,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_select_word(keycode, record, SELWORD)) {
+    if (!process_select_word(keycode, record, SELUP, SELRGHT, SELDOWN, SELLEFT)) {
         return false;
     }
     if (!process_alternate_case(keycode, record, ALTCASE)) {

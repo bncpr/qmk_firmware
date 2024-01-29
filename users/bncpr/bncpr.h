@@ -20,6 +20,10 @@ enum custom_keycodes_user {
     SECRET_1_MACRO,
     SECRET_2_MACRO,
     SECRET_N_MACRO,
+    SELRGHT,
+    SELLEFT,
+    SELUP,
+    SELDOWN,
     PAREN,
     SQBRC,
     CBRC,
@@ -44,7 +48,6 @@ enum custom_keycodes_user {
     N_BSPC4,
     SPC_COMMA,
     WORD_I,
-    SELWORD,
     ALTCASE,
     NEW_SAFE_RANGE,
 };

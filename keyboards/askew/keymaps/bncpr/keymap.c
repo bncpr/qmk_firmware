@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                                -------   -------   -------   -------      -------   -------   -------   -------
     ),
     [_NAV] = LAYOUT_split_3x6_4(
-        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            C(KC_F),  C(KC_D),  C(KC_U),  ALTCASE,  SELWORD,  XXXXXXX,
+        XXXXXXX,  UNDO,     CUT,      COPY,     PASTE,    REDO,                            SELLEFT,  SELDOWN,  SELUP,    SELRGHT,  ALTCASE,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------
         XXXXXXX,  OSM_GUI,  OSM_ALT,  OSM_CTL,  OSM_SFT,  OSM_HYP,                         KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, CW_TOGG,  XXXXXXX,
     //  -------   -------   -------   -------   -------   -------                          -------   -------   -------   -------   -------   -------

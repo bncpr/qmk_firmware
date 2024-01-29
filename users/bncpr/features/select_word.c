@@ -21,6 +21,9 @@
  */
 
 #include "select_word.h"
+#include "action.h"
+#include "modifiers.h"
+#include <stdint.h>
 
 // Mac users, uncomment this line:
 // #define MAC_HOTKEYS
@@ -28,9 +31,7 @@
 // clang-format off
 enum {
     STATE_NONE,        // No selection.
-    STATE_SELECTED,    // Macro released with something selected.
     STATE_WORD,        // Macro held with word(s) selected.
-    STATE_FIRST_LINE,  // Macro held with one line selected.
     STATE_LINE         // Macro held with multiple lines selected.
 };
 // clang-format on
@@ -48,95 +49,71 @@ void select_word_task(void) {
 #endif // SELECT_WORD_TIMEOUT > 0
 
 bool process_select_word(uint16_t keycode, keyrecord_t *record,
-                         uint16_t sel_keycode) {
-    if (keycode == KC_LSFT || keycode == KC_RSFT) {
-        return true;
-    }
-
+                         uint16_t up, uint16_t right, uint16_t down, uint16_t left) {
 #if SELECT_WORD_TIMEOUT > 0
     idle_timer = record->event.time + SELECT_WORD_TIMEOUT;
 #endif // SELECT_WORD_TIMEOUT > 0
 
-    if (keycode == sel_keycode && record->event.pressed) { // On key press.
-        const uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
-        const bool shifted = (mods | get_oneshot_mods()) & MOD_MASK_SHIFT;
-        clear_oneshot_mods();
-#else
-        const bool shifted = mods & MOD_MASK_SHIFT;
-#endif // NO_ACTION_ONESHOT
-
-        if (!shifted) { // Select word.
-#ifdef MAC_HOTKEYS
-            set_mods(MOD_BIT(KC_LALT)); // Hold Left Alt (Option).
-#else
-            set_mods(MOD_BIT(KC_LCTL)); // Hold Left Ctrl.
-#endif // MAC_HOTKEYS
+    if (record->event.pressed && (keycode == left || keycode == right || keycode == up || keycode == down)) {
+        if (keycode == left || keycode == right) {
+            register_mods(MOD_BIT_LCTRL);
             if (state == STATE_NONE) {
-                // On first use, tap Ctrl+Right then Ctrl+Left (or with Alt on Mac) to
-                // ensure the cursor is positioned at the beginning of the word.
-                send_keyboard_report();
-                tap_code(KC_RGHT);
-                tap_code(KC_LEFT);
+                if (keycode == left) {
+                    tap_code(KC_LEFT);
+                    tap_code(KC_RIGHT);
+                } else {
+                    tap_code(KC_RIGHT);
+                    tap_code(KC_LEFT);
+                }
             }
-            register_mods(MOD_BIT(KC_LSFT));
-            register_code(KC_RGHT);
-            state = STATE_WORD;
-        } else { // Select line.
-            if (state == STATE_NONE) {
-#ifdef MAC_HOTKEYS
-                // Tap GUI (Command) + Left, then Shift + GUI + Right.
-                set_mods(MOD_BIT(KC_LGUI));
-                send_keyboard_report();
+            register_mods(MOD_BIT_LSHIFT);
+            if (keycode == left) {
                 tap_code(KC_LEFT);
-                register_mods(MOD_BIT(KC_LSFT));
-                tap_code(KC_RGHT);
-#else
-                // Tap Home, then Shift + End.
-                clear_mods();
-                send_keyboard_report();
-                tap_code(KC_HOME);
-                register_mods(MOD_BIT(KC_LSFT));
-                tap_code(KC_END);
-#endif // MAC_HOTKEYS
-                set_mods(mods);
-                state = STATE_FIRST_LINE;
             } else {
-                register_code(KC_DOWN);
-                state = STATE_LINE;
+                tap_code(KC_RIGHT);
             }
+            state = STATE_WORD;
+            unregister_mods(MOD_BIT_LCTRL | MOD_BIT_LSHIFT);
         }
+        if (keycode == up || keycode == down) {
+            if (state == STATE_NONE) {
+                if (keycode == up) {
+                    tap_code(KC_END);
+                } else {
+                    tap_code(KC_HOME);
+                }
+            }
+            register_mods(MOD_BIT_LSHIFT);
+            if (state == STATE_NONE || state == STATE_WORD) {
+                if (keycode == up) {
+                    tap_code(KC_HOME);
+                } else {
+                    tap_code(KC_END);
+                }
+            } else {
+                if (keycode == up) {
+                    tap_code(KC_UP);
+                } else {
+                    tap_code(KC_DOWN);
+                }
+            }
+            unregister_mods(MOD_BIT_LSHIFT);
+            state = STATE_LINE;
+        }
+
         return false;
     }
 
-    // `sel_keycode` was released, or another key was pressed.
+    // `keycode` was released, or another key was pressed.
     switch (state) {
         case STATE_WORD:
-            unregister_code(KC_RGHT);
-#ifdef MAC_HOTKEYS
-            unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT));
-#else
-            unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LCTL));
-#endif // MAC_HOTKEYS
-            state = STATE_SELECTED;
-            break;
-
-        case STATE_FIRST_LINE:
-            state = STATE_SELECTED;
-            break;
-
         case STATE_LINE:
-            unregister_code(KC_DOWN);
-            state = STATE_SELECTED;
-            break;
-
-        case STATE_SELECTED:
             if (keycode == KC_ESC) {
                 tap_code(KC_RGHT);
                 state = STATE_NONE;
                 return false;
             }
-            // Fallthrough intended.
+            return true;
         default:
             state = STATE_NONE;
     }
